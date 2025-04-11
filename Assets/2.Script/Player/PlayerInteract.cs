@@ -31,7 +31,7 @@ public class PlayerInteract : MonoBehaviour
             if(hitInfo.collider.GetComponent<Interactable>() != null)
             {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                _playerUI.UpdateText(interactable.proptMessage);
+                _playerUI.UpdateText(interactable.OnLook());
                 if(_playerController.player.Interact.triggered)
                 {
                     interactable.BaseInteract();
