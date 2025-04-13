@@ -5,12 +5,10 @@ using UnityEngine;
 public class StateMachine : MonoBehaviour
 {
     public BaseState ActiveState;
-    public PatrolState PatrolState;
     
     public void Initialise()
     {
-        PatrolState = new PatrolState();
-        ChangeState(PatrolState);
+        ChangeState(new PatrolState());
     }
 
     void Update()

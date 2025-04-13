@@ -171,9 +171,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1329652103248148658, guid: c198cbfa76c95ac4496e06376dcbf5fe, type: 3}
+      propertyPath: m_Speed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4493914613880827488, guid: c198cbfa76c95ac4496e06376dcbf5fe, type: 3}
       propertyPath: m_Name
       value: Zombie1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524312505114027299, guid: c198cbfa76c95ac4496e06376dcbf5fe, type: 3}
+      propertyPath: EyeHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524312505114027299, guid: c198cbfa76c95ac4496e06376dcbf5fe, type: 3}
+      propertyPath: FieldOfView
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524312505114027299, guid: c198cbfa76c95ac4496e06376dcbf5fe, type: 3}
+      propertyPath: SightDistance
+      value: 12.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
