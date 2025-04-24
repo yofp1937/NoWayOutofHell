@@ -5,25 +5,29 @@ using UnityEngine;
 public class PlayerLook : MonoBehaviour
 {
     [Header("# Main Data")]
-    float _xRotation = 0;
-    [SerializeField] float _xSensitivity = 30; // 좌우 회전속도
-    [SerializeField] float _ySensitivity = 30; // 위아래 회전속도
+    public float Sensitivity = 100f; // 마우스 감도
 
     [Header("# Reference Data")]
-    [SerializeField] Camera _cam;
+    [SerializeField] Transform _camArm;
+    [SerializeField] Transform _upperBody;
 
     public void ProcessLook(Vector2 input)
     {
-        float mouseX = input.x;
-        float mouseY = input.y;
+        float mouseX = input.x * Sensitivity * Time.deltaTime;
+        float mouseY = input.y * Sensitivity * Time.deltaTime;
+        Vector3 camAngle = _camArm.rotation.eulerAngles;
 
-        // 마우스 위, 아래 이동에 따른 Rotation 계산
-        _xRotation -= (mouseY * Time.deltaTime) * _ySensitivity;
-        _xRotation = Mathf.Clamp(_xRotation, -80f, 80f);
-        // 카메라 위지 적용
-        _cam.transform.localRotation = Quaternion.Euler(_xRotation, 0, 0);
+        float xRotation = camAngle.x - mouseY;
 
-        // 마우스 왼쪽, 오른쪽 이동에 따른 Rotate 계산
-        transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * _xSensitivity);
+        if(xRotation < 180)
+        {
+            xRotation = Mathf.Clamp(xRotation, -1f, 50f);
+        }
+        else
+        {
+            xRotation = Mathf.Clamp(xRotation, 335f, 361f);
+        }
+
+        _camArm.rotation = Quaternion.Euler(xRotation, camAngle.y + mouseX, camAngle.z);
     }
 }

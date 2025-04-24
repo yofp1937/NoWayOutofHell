@@ -6,10 +6,7 @@ public class AttackState : BaseState
 {
     public override void Enter()
     {
-        if(Enemy.IsRun)
-        {
-            Enemy.Agent.speed = 2.5f;
-        }
+        Enemy.Agent.speed = Enemy.MoveSpeed;
     }
 
     public override void Exit()
@@ -22,8 +19,18 @@ public class AttackState : BaseState
         if(Enemy.CanSeePlayer())
         {
             Vector3 playerPos = Enemy.Player.transform.position;
-            Enemy.transform.LookAt(playerPos);
-            Enemy.Anim.SetFloat("MoveSpeed", Enemy.Agent.speed);
+            Vector3 lookTarget = new Vector3(playerPos.x, 0f, playerPos.z);
+            Enemy.transform.LookAt(lookTarget);
+            if(Enemy.IsInAttackRange())
+            {
+                Enemy.Agent.isStopped = true;
+                Enemy.Anim.SetFloat("MoveSpeed", 0f);
+            }
+            else
+            {
+                Enemy.Agent.isStopped = false;
+                Enemy.Anim.SetFloat("MoveSpeed", Enemy.MoveSpeed);
+            }
             Enemy.Agent.SetDestination(playerPos);
         }
     }

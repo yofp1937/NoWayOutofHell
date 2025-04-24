@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PatrolState : BaseState
 {
-    public int WaypointIndex;
+    float _patrolRadius = 7.5f;
     float _randomTime;
     float _waitTimer;
 
     public override void Enter()
     {
-        Enemy.Agent.speed = 1;
+        Enemy.Agent.speed = Enemy.MoveSpeed;
     }
 
     public override void Perform()
@@ -35,11 +35,10 @@ public class PatrolState : BaseState
             _waitTimer += Time.deltaTime;
             if(_waitTimer >= _randomTime)
             {
-                if(Random.Range(0,100) >= 10) // 20% 확률로 이동 
+                if(Random.Range(0,100f) >= 10f) // 20% 확률로 이동 
                 {
                     Enemy.Anim.SetFloat("MoveSpeed", Enemy.Agent.speed);
-                    WaypointIndex = Random.Range(0, Enemy.Path.Waypoints.Count);
-                    Enemy.Agent.SetDestination(Enemy.Path.Waypoints[WaypointIndex].position);
+                    Enemy.Agent.SetDestination(Enemy.transform.position + (Vector3)(Random.insideUnitCircle * _patrolRadius));
                 }
                 ResetTimer();
             }
@@ -49,6 +48,6 @@ public class PatrolState : BaseState
     void ResetTimer()
     {
         _waitTimer = 0;
-        _randomTime = Random.Range(5, 16);
+        _randomTime = Random.Range(5f, 16f);
     }
 }

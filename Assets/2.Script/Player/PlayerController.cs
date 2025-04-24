@@ -1,44 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    PlayerInput playerInput;
-    public PlayerInput.PlayerActions player;
+    [Header("# Main Data")]
+    PlayerInput _playerInput;
+    public PlayerInput.PlayerActions Player;
 
-    PlayerMovement movement;
-    PlayerLook look;
+    [Header("# Reference Data")]
+    PlayerMovement _movement;
+    PlayerLook _look;
+    PlayerAnimationController _animCon;
 
     void Awake()
     {
-        playerInput = new PlayerInput();
-        player = playerInput.Player;
+        _playerInput = new PlayerInput();
+        Player = _playerInput.Player;
 
-        movement = GetComponent<PlayerMovement>();
-        look = GetComponent<PlayerLook>();
+        _movement = GetComponent<PlayerMovement>();
+        _look = GetComponent<PlayerLook>();
+        _animCon = GetComponent<PlayerAnimationController>();
 
-        player.Jump.performed += e => movement.Jump();
+        Player.Jump.performed += e => _movement.Jump();
+        Player.Shot.performed += e => _animCon.Shot();
+
+        LockCursor(true); // 시작 시 마우스 고정
     }
 
     void FixedUpdate()
     {
-        movement.ProcessMove(player.Movement.ReadValue<Vector2>());
+        _movement.ProcessMove(Player.Movement.ReadValue<Vector2>());
     }
 
     void LateUpdate()
     {
-        look.ProcessLook(player.Look.ReadValue<Vector2>());
+        _look.ProcessLook(Player.Look.ReadValue<Vector2>());
     }
 
     void OnEnable()
     {
-        playerInput.Enable();
+        _playerInput.Enable();
     }
 
     void OnDisable()
     {
-        playerInput.Disable();
+        _playerInput.Disable();
+    }
+
+    void LockCursor(bool isLocked)
+    {
+        Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !isLocked;
     }
 }

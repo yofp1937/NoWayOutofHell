@@ -32,7 +32,7 @@ public class PlayerInteract : MonoBehaviour
             {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
                 _playerUI.UpdateText(interactable.OnLook());
-                if(_playerController.player.Interact.triggered)
+                if(_playerController.Player.Interact.triggered)
                 {
                     interactable.BaseInteract();
                 }
