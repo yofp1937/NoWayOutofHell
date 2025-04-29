@@ -33,7 +33,7 @@ public class InteractableEditor : Editor
             {
                 if(interactable.GetComponent<InteractionEvent>() != null)
                 {
-                    DestroyImmediate(interactable.GetComponent<InteractionEvent>());
+                    DestroyImmediate(interactable.GetComponent<InteractionEvent>(), true);
                 }
             }
         }

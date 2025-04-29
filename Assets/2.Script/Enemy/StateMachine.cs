@@ -6,7 +6,7 @@ public class StateMachine : MonoBehaviour
 {
     public BaseState ActiveState;
     
-    public void Initialise()
+    public void Init()
     {
         ChangeState(new PatrolState());
     }

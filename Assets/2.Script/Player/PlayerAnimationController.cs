@@ -10,9 +10,9 @@ public class PlayerAnimationController : MonoBehaviour
     /// 무기 획득시 호출하여 Player의 애니메이션 레이어 변경
     /// </summary>
     /// <param name="weapon"></param>
-    public void ChangeAnimationLayer(Weapon weapon)
+    public void ChangeAnimationLayer(WeaponEnum weaponEnum) // 수정해야함
     {
-        string targetLayer = weapon.WeaponEnum.ToString();
+        string targetLayer = weaponEnum.ToString();
 
         for(int index = 0; index < _anim.layerCount; index++)
         {
@@ -30,5 +30,4 @@ public class PlayerAnimationController : MonoBehaviour
     }
 
     public void SetMove(bool move) { _anim.SetBool("Move", move); }
-    public void Shot() { _anim.SetTrigger("Shot"); Debug.Log("Shot!"); }
 }

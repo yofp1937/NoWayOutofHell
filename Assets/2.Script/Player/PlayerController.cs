@@ -12,6 +12,11 @@ public class PlayerController : MonoBehaviour
     PlayerMovement _movement;
     PlayerLook _look;
     PlayerAnimationController _animCon;
+    PlayerItem _playerItem;
+
+    // Delegate
+    public delegate void OnShotDelegate();
+    public OnShotDelegate OnShotAction;
 
     void Awake()
     {
@@ -21,9 +26,11 @@ public class PlayerController : MonoBehaviour
         _movement = GetComponent<PlayerMovement>();
         _look = GetComponent<PlayerLook>();
         _animCon = GetComponent<PlayerAnimationController>();
+        _playerItem = GetComponent<PlayerItem>();
 
         Player.Jump.performed += e => _movement.Jump();
-        Player.Shot.performed += e => _animCon.Shot();
+        Player.Shot.performed += e => OnShotAction?.Invoke();
+        Player.ChangeWeapon.performed += OnChangeWeapon;
 
         LockCursor(true); // 시작 시 마우스 고정
     }
@@ -52,5 +59,11 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = !isLocked;
+    }
+
+    void OnChangeWeapon(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        int inputValue = int.Parse(context.control.name); // 키보드 1,2,3,4 입력 받아오기
+        _playerItem.ChangeWeapon(inputValue); // PlayerItem의 ChangeWeapon 호출
     }
 }

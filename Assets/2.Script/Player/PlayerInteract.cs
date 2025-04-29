@@ -9,7 +9,7 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] LayerMask mask;
 
     [Header("# Reference Data")]
-    [SerializeField] Camera _cam;
+    [SerializeField] Transform _ray;
     PlayerUI _playerUI;
     PlayerController _playerController;
 
@@ -22,8 +22,9 @@ public class PlayerInteract : MonoBehaviour
     void Update()
     {
         _playerUI.UpdateText(string.Empty);
+
         // 전방으로 Raycast 보내서 상호작용 가능한 객체 감지
-        Ray ray = new Ray(_cam.transform.position, _cam.transform.forward);
+        Ray ray = new Ray(_ray.position, _ray.forward);
         Debug.DrawRay(ray.origin, ray.direction * _distance, Color.red);
         RaycastHit hitInfo;
         if(Physics.Raycast(ray, out hitInfo, _distance, mask))
@@ -34,7 +35,7 @@ public class PlayerInteract : MonoBehaviour
                 _playerUI.UpdateText(interactable.OnLook());
                 if(_playerController.Player.Interact.triggered)
                 {
-                    interactable.BaseInteract();
+                    interactable.BaseInteract(gameObject);
                 }
             }
         }
