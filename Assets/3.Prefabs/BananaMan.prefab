@@ -1359,7 +1359,7 @@ GameObject:
   - component: {fileID: 6479263637716715174}
   - component: {fileID: 1083919623726308572}
   m_Layer: 3
-  m_Name: Banana Man
+  m_Name: BananaMan
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

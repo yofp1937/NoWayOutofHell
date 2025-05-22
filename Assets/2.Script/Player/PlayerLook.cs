@@ -21,7 +21,7 @@ public class PlayerLook : MonoBehaviour
 
         if(xRotation < 180)
         {
-            xRotation = Mathf.Clamp(xRotation, -1f, 50f);
+            xRotation = Mathf.Clamp(xRotation, -1f, 55f);
         }
         else
         {

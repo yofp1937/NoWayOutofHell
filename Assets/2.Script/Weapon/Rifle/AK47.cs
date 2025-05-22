@@ -6,6 +6,6 @@ public class AK47 : Weapon
 {
     public override void Shot()
     {
-
+        base.Shot();
     }
 }

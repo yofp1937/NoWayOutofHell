@@ -461,7 +461,7 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Rifle
+    m_Name: Main
     m_StateMachine: {fileID: 8747584255626097965}
     m_Mask: {fileID: 0}
     m_Motions: []
@@ -832,7 +832,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Rifle
+  m_Name: Main
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -4166009781743450214}

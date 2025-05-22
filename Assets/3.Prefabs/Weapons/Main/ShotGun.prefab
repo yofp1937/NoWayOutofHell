@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 636189448443273327}
   - component: {fileID: 3258728664399646751}
   - component: {fileID: 5026499829410922057}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_E_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8809351143804566140}
   - component: {fileID: 1550225620657777128}
   - component: {fileID: 3704677741671772525}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_E_Receiver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 1982775587518466647}
   - component: {fileID: 6955510173295825838}
   - component: {fileID: 7081575371321723821}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_E_Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 2665717540530946163}
   - component: {fileID: 5479561459358072573}
   - component: {fileID: 3305473590967301906}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_E_BarrelGuard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 6969831701918497907}
   - component: {fileID: 5247702197783061447}
   - component: {fileID: 1877231977645188587}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_E_Rail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 8236698245544548987}
   - component: {fileID: 1933036083632440112}
   - component: {fileID: 737137236397308178}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_E_Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -507,7 +507,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8396158248225550356}
-  m_Layer: 0
+  - component: {fileID: 2900658829870843525}
+  - component: {fileID: 2057293486731566234}
+  - component: {fileID: -1580634569855730890}
+  m_Layer: 6
   m_Name: ShotGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,3 +538,72 @@ Transform:
   - {fileID: 636189448443273327}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &2900658829870843525
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9209568620739521198}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.15
+  m_Height: 1.25
+  m_Direction: 2
+  m_Center: {x: 0, y: -0.01, z: 0.2}
+--- !u!54 &2057293486731566234
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9209568620739521198}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 3
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-1580634569855730890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9209568620739521198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58d8e209bd9cf543887f79f4fb829a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useEvents: 0
+  promptMessage: Get ShotGun
+  WeaponEnum: 1
+  Bullet: {fileID: 3489922258393200078, guid: 4d409630e9aa0d74cb9e7359305b15c6, type: 3}
+  _player: {fileID: 0}
+  _playerController: {fileID: 0}
+  _playerItem: {fileID: 0}

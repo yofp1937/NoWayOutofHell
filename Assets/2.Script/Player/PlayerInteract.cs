@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     [Header("# Main Data")]
-    [SerializeField] float _distance = 3f;
+    [SerializeField] float _distance = 2.5f;
     [SerializeField] LayerMask mask;
+    public Ray InteractRay;
 
     [Header("# Reference Data")]
     [SerializeField] Transform _ray;
@@ -24,10 +25,10 @@ public class PlayerInteract : MonoBehaviour
         _playerUI.UpdateText(string.Empty);
 
         // 전방으로 Raycast 보내서 상호작용 가능한 객체 감지
-        Ray ray = new Ray(_ray.position, _ray.forward);
-        Debug.DrawRay(ray.origin, ray.direction * _distance, Color.red);
+        InteractRay = new Ray(_ray.position, _ray.forward);
+        Debug.DrawRay(InteractRay.origin, InteractRay.direction * _distance, Color.red);
         RaycastHit hitInfo;
-        if(Physics.Raycast(ray, out hitInfo, _distance, mask))
+        if(Physics.Raycast(InteractRay, out hitInfo, _distance, mask))
         {
             if(hitInfo.collider.GetComponent<Interactable>() != null)
             {

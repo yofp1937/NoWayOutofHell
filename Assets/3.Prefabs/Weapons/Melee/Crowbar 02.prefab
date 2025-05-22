@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 4481511348945084}
   - component: {fileID: 33330374418451490}
   - component: {fileID: 23647857385372612}
-  m_Layer: 0
+  - component: {fileID: 6532546076733440565}
+  - component: {fileID: -4998272037373346577}
+  - component: {fileID: 5144308875938288731}
+  m_Layer: 6
   m_Name: Crowbar 02
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -27,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 1057417602705960}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00076, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4842049829891028}
@@ -84,6 +87,75 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &6532546076733440565
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057417602705960}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5268334
+  m_Height: 4.891967
+  m_Direction: 1
+  m_Center: {x: -0.18815775, y: -0.04151237, z: 0.017805245}
+--- !u!54 &-4998272037373346577
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057417602705960}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 3
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5144308875938288731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057417602705960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c91047ad4663b4b4b9ab01a002988d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useEvents: 0
+  promptMessage: Get CrowBar
+  WeaponEnum: 4
+  Bullet: {fileID: 0}
+  _player: {fileID: 0}
+  _playerController: {fileID: 0}
+  _playerItem: {fileID: 0}
 --- !u!1 &1514185034712026
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +167,7 @@ GameObject:
   - component: {fileID: 4842049829891028}
   - component: {fileID: 33556157468154284}
   - component: {fileID: 23440132647798518}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Crowbar_Cloth
   m_TagString: Cloth
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6642383236301723706}
   - component: {fileID: 7568129055493812832}
   - component: {fileID: 2710245588308465360}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AR_A_Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4423227209364260813}
   - component: {fileID: 4462672000279397995}
   - component: {fileID: 5445012350354258814}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AR_A_Grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 6229564456383013265}
   - component: {fileID: 6856621646063771753}
   - component: {fileID: 8231315684876909008}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AR_A_Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 559608790406286170}
   - component: {fileID: 2071726173718283983}
   - component: {fileID: 5473919556654598650}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AR_A_Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 1463129304429955804}
   - component: {fileID: 6909562952834185171}
   - component: {fileID: 5921511153555125662}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AR_A_Receiver_Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 821896605453764465}
   - component: {fileID: 6614765365082981090}
   - component: {fileID: 887237793275094248}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AR_A_Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 701292661907800030}
   - component: {fileID: 8509371160271760060}
   - component: {fileID: 6192542432017793962}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AR_A_BarrelGuard_Rail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -590,7 +590,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3557320247793090291}
-  m_Layer: 0
+  - component: {fileID: -5306592101370682825}
+  - component: {fileID: 4783914880251028869}
+  - component: {fileID: -645116666754884184}
+  m_Layer: 6
   m_Name: M4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -623,6 +626,75 @@ Transform:
   - {fileID: 244453420088117072}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &-5306592101370682825
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185518912306324553}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.15
+  m_Height: 1
+  m_Direction: 2
+  m_Center: {x: 0, y: -0.01, z: 0.15}
+--- !u!54 &4783914880251028869
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185518912306324553}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 3
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-645116666754884184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185518912306324553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5347d0bd277dd074a815f98ef43a4b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useEvents: 0
+  promptMessage: Get M4
+  WeaponEnum: 0
+  Bullet: {fileID: 9012874731585123008, guid: 1c9d6be45c3e26243aaec89e7acfbec9, type: 3}
+  _player: {fileID: 0}
+  _playerController: {fileID: 0}
+  _playerItem: {fileID: 0}
 --- !u!1 &4638949467097366829
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,7 +706,7 @@ GameObject:
   - component: {fileID: 3465316993569334593}
   - component: {fileID: 4567781979395656638}
   - component: {fileID: 3817103850363266680}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AR_A_Receiver_Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -717,7 +789,7 @@ GameObject:
   - component: {fileID: 4191794320225550539}
   - component: {fileID: 3571084841021164717}
   - component: {fileID: 4699324437517989664}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AR_A_Rail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -800,7 +872,7 @@ GameObject:
   - component: {fileID: 244453420088117072}
   - component: {fileID: 7247737010417673568}
   - component: {fileID: 8008821597837332461}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AR_A_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -883,7 +955,7 @@ GameObject:
   - component: {fileID: 4065799151207523083}
   - component: {fileID: 7335006910390786658}
   - component: {fileID: 9007649579228396840}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AR_A_BarrelGuard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -967,7 +1039,7 @@ GameObject:
   - component: {fileID: 5596398737843595126}
   - component: {fileID: 5853794144044150951}
   - component: {fileID: 841515749759792023}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AR_A_Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}

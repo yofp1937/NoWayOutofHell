@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3892103834705860653}
   - component: {fileID: 3421862022894441175}
   - component: {fileID: 886250800468521009}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_C_BarrelGuard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7726640603588603619}
   - component: {fileID: 5610337809814076293}
   - component: {fileID: 4232487450012596292}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_C_Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 1455421266144894029}
   - component: {fileID: 8326691139692273000}
   - component: {fileID: 358596651449490777}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_C_Sight_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 3271002687758103185}
   - component: {fileID: 3332927348158454575}
   - component: {fileID: 5847569077301261498}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_C_Grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 2735835991189821717}
   - component: {fileID: 1016295906613350937}
   - component: {fileID: 8070722396397511014}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_C_Stock_Part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,7 +424,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2592109398234381758}
-  m_Layer: 0
+  - component: {fileID: 4151234972844168596}
+  - component: {fileID: -8338772047188353984}
+  - component: {fileID: -3191082773157327477}
+  m_Layer: 6
   m_Name: ShotGunAuto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,6 +460,75 @@ Transform:
   - {fileID: 2461922847253017265}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &4151234972844168596
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2932640980190783236}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.125
+  m_Height: 1.25
+  m_Direction: 2
+  m_Center: {x: 0, y: -0.01, z: 0.2}
+--- !u!54 &-8338772047188353984
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2932640980190783236}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 3
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-3191082773157327477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2932640980190783236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f6b44ca3c05b434c9fce2341df74609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useEvents: 0
+  promptMessage: Get AutoShotGun
+  WeaponEnum: 1
+  Bullet: {fileID: 4948304750745466347, guid: 0b06c9f960b5da64cbe7baf57569248b, type: 3}
+  _player: {fileID: 0}
+  _playerController: {fileID: 0}
+  _playerItem: {fileID: 0}
 --- !u!1 &3691993328751055396
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +540,7 @@ GameObject:
   - component: {fileID: 2461922847253017265}
   - component: {fileID: 9102857183451820412}
   - component: {fileID: 3014117811243645935}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_C_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,7 +623,7 @@ GameObject:
   - component: {fileID: 8901286320977168951}
   - component: {fileID: 4519325952773459441}
   - component: {fileID: 3163879153544430775}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_C_Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +706,7 @@ GameObject:
   - component: {fileID: 8608477406611746195}
   - component: {fileID: 4477045197507606128}
   - component: {fileID: 2914520148997411481}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_C_Sight_Forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -717,7 +789,7 @@ GameObject:
   - component: {fileID: 6395125987733184735}
   - component: {fileID: 2658618048503451070}
   - component: {fileID: 8576323223152685795}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_C_Receiver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -800,7 +872,7 @@ GameObject:
   - component: {fileID: 8222511354573691998}
   - component: {fileID: 8781581015936702740}
   - component: {fileID: 6742522639716579604}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_C_Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -884,7 +956,7 @@ GameObject:
   - component: {fileID: 7110380695182338613}
   - component: {fileID: 4434331797214900550}
   - component: {fileID: 2129674541251720010}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_C_Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -967,7 +1039,7 @@ GameObject:
   - component: {fileID: 1335405831079171615}
   - component: {fileID: 2762836812614648575}
   - component: {fileID: 4523127036187727460}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotGun_C_Rail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

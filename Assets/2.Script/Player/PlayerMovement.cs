@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         _isGrounded = _controller.isGrounded;
+        // 좌,우 방향키를 반복적으로 누르면 Chracter가 화면에서 점점 밀려나서 Player와 Character의 position을 일치시킴
+        _character.position = gameObject.transform.position;
     }
 
     public void ProcessMove(Vector2 input)
@@ -50,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Quaternion playerRotation = Quaternion.LookRotation(moveDir);
             Vector3 euler = playerRotation.eulerAngles;
-            _character.rotation = Quaternion.Slerp(_character.rotation, Quaternion.Euler(0, euler.y + 40f, 0), Time.deltaTime * 10f);
+            _character.rotation = Quaternion.Slerp(_character.rotation, Quaternion.Euler(0, euler.y + 30f, 0), Time.deltaTime * 10f);
             _animCon.SetMove(true);
         }
         else

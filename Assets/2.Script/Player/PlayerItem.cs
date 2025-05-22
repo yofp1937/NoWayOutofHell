@@ -11,10 +11,10 @@ public class PlayerItem : MonoBehaviour
     public Weapon HealItem; // 회복용 아이템
 
     [Header("# Equips Transform")]
-    [SerializeField] Transform MainT;
-    [SerializeField] Transform[] SubT; // 0은 Pistol, 1은 Melee
-    [SerializeField] Transform ThrowingT;
-    [SerializeField] Transform HealT;
+    public Transform MainT;
+    public Transform[] SubT; // 0은 Pistol, 1은 Melee
+    public Transform ThrowingT;
+    public Transform HealT;
 
     [Header("# Reference Data")]
     PlayerAnimationController _playerAnimController;
@@ -88,6 +88,7 @@ public class PlayerItem : MonoBehaviour
                 break;
         }
         _playerAnimController.ChangeAnimationLayer(target.WeaponEnum);
+        // TODO OnShotACtion도 변경
         DeactivateOtherWeapons(targetTransform);
     }
 

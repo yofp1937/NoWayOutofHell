@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 4464112360172538}
   - component: {fileID: 33695369258364106}
   - component: {fileID: 23378595553536106}
-  m_Layer: 0
+  - component: {fileID: 6285710883923469330}
+  - component: {fileID: 90131055757186154}
+  - component: {fileID: -325187539200390119}
+  m_Layer: 6
   m_Name: Shovel 03
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -28,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4625580734812016}
@@ -86,6 +89,75 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &6285710883923469330
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116070051026404}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Height: 3.75
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!54 &90131055757186154
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116070051026404}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 3
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-325187539200390119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116070051026404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7ce7db76af8a6a41906cecdff6fd1c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useEvents: 0
+  promptMessage: Get Shovel
+  WeaponEnum: 4
+  Bullet: {fileID: 0}
+  _player: {fileID: 0}
+  _playerController: {fileID: 0}
+  _playerItem: {fileID: 0}
 --- !u!1 &1197270243415778
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +169,7 @@ GameObject:
   - component: {fileID: 4038247752882616}
   - component: {fileID: 33676947064373944}
   - component: {fileID: 23589258651868200}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Handle02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +252,7 @@ GameObject:
   - component: {fileID: 4625580734812016}
   - component: {fileID: 33087547061089870}
   - component: {fileID: 23192138948153654}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Handle01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +335,7 @@ GameObject:
   - component: {fileID: 4813343541523052}
   - component: {fileID: 33490902026378472}
   - component: {fileID: 23997417571313836}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shovel_Cloth
   m_TagString: Cloth
   m_Icon: {fileID: 0}
