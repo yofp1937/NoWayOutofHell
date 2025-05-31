@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireAxe : Weapon
+public class FireAxe : Melee
 {
     public override void Shot()
     {

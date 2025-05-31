@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8961072019988889667}
   m_Layer: 6
   m_Name: Pistol_J_Bolt
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,9 +95,11 @@ GameObject:
   - component: {fileID: -7558177563792693568}
   - component: {fileID: 4614203537282961498}
   - component: {fileID: 1790200967473507794}
+  - component: {fileID: 2571282934986667100}
+  - component: {fileID: -2307140794732817010}
   m_Layer: 6
   m_Name: Pistol_default
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,11 +190,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Get Pistol
-  WeaponEnum: 3
+  Data: {fileID: 11400000, guid: 07670eed7426cf241a5cdc2edeb70893, type: 2}
+  Player: {fileID: 0}
+  Character: {fileID: 0}
+  PlayerController: {fileID: 0}
+  PlayerItem: {fileID: 0}
+  PlayerInteract: {fileID: 0}
+  PlayerUI: {fileID: 0}
+  AmmoData:
+    MaxAmmo: 0
+    MaxLoadedAmmo: 0
+    LoadedAmmo: 0
+    RemainAmmo: 0
+    ReloadTime: 0
+  CanShot: 1
+  IsReloading: 0
   Bullet: {fileID: 5649216475670180008, guid: 218f9172d89a65e4086eb72dff56b317, type: 3}
-  _player: {fileID: 0}
-  _playerController: {fileID: 0}
-  _playerItem: {fileID: 0}
+  Muzzle: {fileID: 323744510440574975}
+--- !u!114 &2571282934986667100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88317814946030486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc19c26d0aedaf409c42f8c112104f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2307140794732817010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88317814946030486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 217d62f0f45f2754c815eb14cd18aced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1710318766370853210
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +244,7 @@ GameObject:
   - component: {fileID: 6135931401775688919}
   m_Layer: 6
   m_Name: Pistol_J_Receiver
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,7 +327,7 @@ GameObject:
   - component: {fileID: 1467214341689591193}
   m_Layer: 6
   m_Name: Pistol_J_Mag
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -359,6 +397,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2089183647885220979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 323744510440574975}
+  m_Layer: 6
+  m_Name: Muzzle
+  m_TagString: Weapon
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &323744510440574975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089183647885220979}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8013893846606646119}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2736100798383105713
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +441,7 @@ GameObject:
   - component: {fileID: 5196844232207182121}
   m_Layer: 6
   m_Name: Pistol_J_BarrelGuard
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -455,7 +524,7 @@ GameObject:
   - component: {fileID: 8386175574352247203}
   m_Layer: 6
   m_Name: Pistol_J_Trigger
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -538,7 +607,7 @@ GameObject:
   - component: {fileID: 4083707548215495776}
   m_Layer: 6
   m_Name: Pistol_J_Sight
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -621,7 +690,7 @@ GameObject:
   - component: {fileID: 2435194463122282298}
   m_Layer: 6
   m_Name: Pistol_J_Barrel
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -638,7 +707,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0.037, z: 0.095}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 323744510440574975}
   m_Father: {fileID: 752686323466385708}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6874791194615768121

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrowBar : Weapon
+public class CrowBar : Melee
 {
     public override void Shot()
     {

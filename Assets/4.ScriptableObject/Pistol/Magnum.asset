@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2937466f5c826de42bba68dd67d02135, type: 3}
+  m_Name: Magnum
+  m_EditorClassIdentifier: 
+  WeaponType: 2
+  Damage: 80
+  FireRate: 0.3
+  MaxAmmo: -1
+  MaxLoadedAmmo: 8
+  LoadedAmmo: 8
+  RemainAmmo: -1
+  ReloadTime: 2
+  BulletSpeed: 50

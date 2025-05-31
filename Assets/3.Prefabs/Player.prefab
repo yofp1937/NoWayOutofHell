@@ -328,6 +328,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sensitivity: 30
+  _maxVerticalAngle: 60
+  _minVerticalAngle: 325
   _camArm: {fileID: 3652911373934424678}
   _upperBody: {fileID: 4442813452386767262}
 --- !u!114 &5429349405580265352
@@ -342,11 +344,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf8e9ab2c5da114da7552dfe6890a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distance: 2
+  _distance: 5
   mask:
     serializedVersion: 2
     m_Bits: 64
-  _ray: {fileID: 5691796888401187226}
+  _camera: {fileID: 1102230343062728035}
 --- !u!114 &6126647672633542623
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,85 +2,98 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponEnum {Rifle, ShotGun, Sniper, Pistol, Melee, ThrowingWeapon, HealItem }
 public abstract class Weapon : Interactable
 {
     [Header("# Weapon's Main Data")]
-    public WeaponEnum WeaponEnum;
-    public GameObject Bullet;
-    protected Transform _muzzle; // 총구
+    public WeaponData Data;
 
-    [Header("# Weapon's Reference Data")]
-    protected GameObject _player;
-    protected Transform _character;
-    protected PlayerController _playerController;
-    protected PlayerItem _playerItem;
-    protected PlayerInteract _playerInteract;
-    Collider _col;
-    Rigidbody _rigid;
+    [Header("# Weapon's Self Component References Data")]
+    protected Collider _col;
+    protected Rigidbody _rigid;
+
+    [Header("# Weapon's External References Data")]
+    [HideInInspector] public GameObject Player;
+    [HideInInspector] public Transform Character;
+    [HideInInspector] public PlayerController PlayerController;
+    [HideInInspector] public PlayerItem PlayerItem;
+    [HideInInspector] public PlayerInteract PlayerInteract;
+    [HideInInspector] public PlayerUI PlayerUI;
 
     void Awake()
     {
         _col = GetComponent<Collider>();
         _rigid = GetComponent<Rigidbody>();
+        Init();
+    }
 
+    protected virtual void Init() { }
+
+    void Start()
+    {
         // 부모 오브젝트에 PlayerController가 있을 경우 자동으로 플레이어 참조를 초기화
         // (기본 장착중인 무기가 오류를 일으키지 않게 자동으로 Player를 초기화)
         PlayerController controller = GetComponentInParent<PlayerController>();
         if (controller != null)
         {
-            _player = controller.gameObject;
-            _character = _player.transform.Find("BananaMan");
-            _playerController = _player.GetComponent<PlayerController>();
-            ConnectShotDelegate();
-            _playerItem = _player.GetComponent<PlayerItem>();
-            _playerInteract = _player.GetComponent<PlayerInteract>();
-            _col.enabled = false;
-            _rigid.useGravity = false;
+            Player = controller.gameObject;
+            BindPlayerComponents();
+            PlayerUI.UpdateAmmoText(GetAmmoStatus());
         }
     }
 
+    // 무기를 교체할때 GameObject가 활성화됐다 비활성화됐다를 반복하므로 OnEnalbe과 OnDisable에서 Delegate를 갱신함
     void OnEnable()
     {
-        ConnectShotDelegate();
+        ConnectDelegate();
     }
-
     void OnDisable()
     {
-        DisconnectShotDelegate();
+        DisconnectDelegate();
     }
 
     protected override void Interact(GameObject player)
     {
-        _player = player;
+        Player = player;
         Equip();
     }
 
     public virtual void Equip()
     {
-        _character = _player.transform.Find("BananaMan");
-        _playerController = _player.GetComponent<PlayerController>();
-        _playerItem = _player.GetComponent<PlayerItem>();
-        _playerInteract = _player.GetComponent<PlayerInteract>();
-
-        ConnectShotDelegate();
-        _playerItem.GetWeapon(this);
-        _col.enabled = false;
-        _rigid.useGravity = false;
+        BindPlayerComponents();
+        PlayerItem.GetWeapon(this);
     }
 
     public virtual void UnEquip()
     {
         transform.parent = null;
-        transform.position = _player.transform.position + Vector3.up;
+        transform.position = Player.transform.position + Vector3.up;
+        DisconnectDelegate();
         SetPosition();
+        ResetPlayerBindings();
+    }
 
-        DisconnectShotDelegate();
-        _player = null;
-        _character = null;
-        _playerController = null;
-        _playerItem = null;
-        _playerInteract = null;
+    private void BindPlayerComponents()
+    {
+        // Debug.Log($"{gameObject.name}.BindPlayerComponents() 실행");
+        if (Player == null) return;
+        Character = Player.transform.Find("BananaMan");
+        PlayerController = Player.GetComponent<PlayerController>();
+        ConnectDelegate();
+        PlayerItem = Player.GetComponent<PlayerItem>();
+        PlayerInteract = Player.GetComponent<PlayerInteract>();
+        PlayerUI = Player.GetComponent<PlayerUI>();
+        _col.enabled = false;
+        _rigid.useGravity = false;
+    }
+
+    private void ResetPlayerBindings()
+    {
+        Player = null;
+        Character = null;
+        PlayerController = null;
+        PlayerItem = null;
+        PlayerInteract = null;
+        PlayerUI = null;
         _col.enabled = true;
         _rigid.useGravity = true;
     }
@@ -102,36 +115,29 @@ public abstract class Weapon : Interactable
     public void SetPosition()
     {
         transform.SetParent(GameManager.Instance.InteractableT);
-        transform.position = _playerItem.MainT.position;
+        transform.position = PlayerItem.MainT.position;
         transform.rotation = Quaternion.identity;
     }
 
-    public virtual void Shot()
-    {
-        Debug.Log($"{gameObject.name}'s Shot!");
+    // TODO
+    // 1.총알 획득
+    // 3.총기 반동
+    // 4.탄퍼짐
+    // 5.정조준
 
-        // Crosshair를 바라보게 방향 전환
-        Vector3 lookDir = _playerInteract.InteractRay.direction;
-        lookDir.y = 0f;
-        lookDir = Quaternion.AngleAxis(30f, Vector3.up) * lookDir; // 30도 오른쪽으로 회전
-        _character.forward = lookDir;
+    /// <summary>
+    /// 총알 보급시 잔탄 가득 채워주는 함수
+    // /// </summary>
+    // public void GetBullet()
+    // {
+    //     if (0 > Data.MaxAmmo) return; // 총알이 무한인경우 return
+    //     Data.RemainAmmo = Data.MaxAmmo - Data.LoadedAmmo;
+    //     Debug.Log($"{gameObject.name} 총알 획득");
+    // }
 
-        // 이후 총알이 있는 객체들은 총알 발사 로직을 작성
-        // 총알이 없는 객체들은 공격 애니메이션 동작
-        // 자식 스크립트에서 오버라이드해서 작성할것
-    }
+    public abstract void GetAmmo();
+    public abstract string GetAmmoStatus();
 
-
-    void ConnectShotDelegate()
-    {
-        if (_playerController == null) return;
-        _playerController.OnShotAction -= Shot;
-        _playerController.OnShotAction += Shot;
-    }
-
-    void DisconnectShotDelegate()
-    {
-        if (_playerController == null) return;
-        _playerController.OnShotAction -= Shot;
-    }
+    protected virtual void ConnectDelegate() { }
+    protected virtual void DisconnectDelegate() { }
 }

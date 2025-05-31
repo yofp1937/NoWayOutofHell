@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButcherKnife : Weapon
+public class ButcherKnife : Melee
 {
     public override void Shot()
     {

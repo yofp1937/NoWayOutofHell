@@ -18,10 +18,12 @@ public class PlayerItem : MonoBehaviour
 
     [Header("# Reference Data")]
     PlayerAnimationController _playerAnimController;
+    PlayerUI _playerUI;
 
     void Awake()
     {
         _playerAnimController = GetComponent<PlayerAnimationController>();
+        _playerUI = GetComponent<PlayerUI>();
     }
 
     /// <summary>
@@ -29,11 +31,10 @@ public class PlayerItem : MonoBehaviour
     /// </summary>
     public void GetWeapon(Weapon weapon)
     {
-        switch(weapon.WeaponEnum)
+        switch (weapon.Data.WeaponType)
         {
             case WeaponEnum.Rifle:
             case WeaponEnum.ShotGun:
-            case WeaponEnum.Sniper:
                 ChangeEquippedWeapon(ref MainWeapon, weapon);
                 ChangeWeapon(1);
                 weapon.SetPosition(MainT);
@@ -42,7 +43,7 @@ public class PlayerItem : MonoBehaviour
             case WeaponEnum.Melee:
                 ChangeEquippedWeapon(ref SubWeapon, weapon);
                 ChangeWeapon(2);
-                if(weapon.WeaponEnum == WeaponEnum.Pistol)
+                if (weapon.Data.WeaponType == WeaponEnum.Pistol)
                     weapon.SetPosition(SubT[0]);
                 else
                     weapon.SetPosition(SubT[1]);
@@ -60,41 +61,41 @@ public class PlayerItem : MonoBehaviour
         }
     }
 
-    public void ChangeWeapon(int num) // 이건 1번, 2번, 3번, 4번을 눌러서 내가 들고있는 무기의 상태가 바뀌면 호출해야할듯
+    public void ChangeWeapon(int num) // 이건 1번, 2번, 3번, 4번을 눌러서 내가 들고있는 무기의 상태가 바뀌면 호출
     {
         Weapon target = null;
         Transform targetTransform = null;
-        switch(num)
+        switch (num)
         {
             case 1:
-                if(MainWeapon == null) return;
+                if (MainWeapon == null) return;
                 target = MainWeapon;
                 targetTransform = MainT;
                 break;
             case 2:
-                if(SubWeapon == null) return;
+                if (SubWeapon == null) return;
                 target = SubWeapon;
-                targetTransform = SubWeapon.WeaponEnum == WeaponEnum.Pistol ? SubT[0] : SubT[1];
+                targetTransform = SubWeapon.Data.WeaponType == WeaponEnum.Pistol ? SubT[0] : SubT[1];
                 break;
             case 3:
-                if(ThrowingWeapon == null) return;
+                if (ThrowingWeapon == null) return;
                 target = ThrowingWeapon;
                 targetTransform = ThrowingT;
                 break;
             case 4:
-                if(HealItem == null) return;
+                if (HealItem == null) return;
                 target = HealItem;
                 targetTransform = HealT;
                 break;
         }
-        _playerAnimController.ChangeAnimationLayer(target.WeaponEnum);
-        // TODO OnShotACtion도 변경
+        _playerAnimController.ChangeAnimationLayer(target.Data.WeaponType);
+        _playerUI.UpdateAmmoText(target.GetAmmoStatus());
         DeactivateOtherWeapons(targetTransform);
     }
 
     void ChangeEquippedWeapon(ref Weapon equippedWeapon, Weapon newWeapon)
     {
-        if(equippedWeapon != null)
+        if (equippedWeapon != null)
         {
             equippedWeapon.UnEquip();
         }
@@ -105,15 +106,21 @@ public class PlayerItem : MonoBehaviour
     {
         MainT.gameObject.SetActive(MainT == activeTransform);
 
-        foreach(Transform sub in SubT)
+        foreach (Transform sub in SubT)
         {
             sub.gameObject.SetActive(sub == activeTransform);
         }
 
-        if(ThrowingT != null)
+        if (ThrowingT != null)
             ThrowingT.gameObject.SetActive(ThrowingT == activeTransform);
 
-        if(HealT != null)
+        if (HealT != null)
             HealT.gameObject.SetActive(HealT == activeTransform);
+    }
+
+    public void GetAmmo()
+    {
+        MainWeapon.GetAmmo();
+        SubWeapon.GetAmmo();
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 396325605268718852}
   m_Layer: 6
   m_Name: Pistol_F_Bolt
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 5050782935430734738}
   m_Layer: 6
   m_Name: Pistol_F_Mag
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 1285536450463558168}
   m_Layer: 6
   m_Name: Pistol_F_Receiver
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -261,9 +261,11 @@ GameObject:
   - component: {fileID: 4693952870130936621}
   - component: {fileID: 4025589201644285581}
   - component: {fileID: 3901173559992914128}
+  - component: {fileID: -3455203284936430482}
+  - component: {fileID: -5521228977886987614}
   m_Layer: 6
   m_Name: Pistol_magnum
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -354,11 +356,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Get Magnum
-  WeaponEnum: 3
+  Data: {fileID: 11400000, guid: 6a21fe54174b1874783d4cdbd55cec04, type: 2}
+  Player: {fileID: 0}
+  Character: {fileID: 0}
+  PlayerController: {fileID: 0}
+  PlayerItem: {fileID: 0}
+  PlayerInteract: {fileID: 0}
+  PlayerUI: {fileID: 0}
+  AmmoData:
+    MaxAmmo: 0
+    MaxLoadedAmmo: 0
+    LoadedAmmo: 0
+    RemainAmmo: 0
+    ReloadTime: 0
+  CanShot: 1
+  IsReloading: 0
   Bullet: {fileID: 1276885512958874841, guid: 2dd9fa09e55f38d469aae601022afcd7, type: 3}
-  _player: {fileID: 0}
-  _playerController: {fileID: 0}
-  _playerItem: {fileID: 0}
+  Muzzle: {fileID: 9067966014098741846}
+--- !u!114 &-3455203284936430482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5789703485367661094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc19c26d0aedaf409c42f8c112104f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-5521228977886987614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5789703485367661094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 217d62f0f45f2754c815eb14cd18aced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6135162359526167443
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +410,7 @@ GameObject:
   - component: {fileID: 8982652406052180344}
   m_Layer: 6
   m_Name: Pistol_F_BarrelGuard
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -455,7 +493,7 @@ GameObject:
   - component: {fileID: 7219097507584209194}
   m_Layer: 6
   m_Name: Pistol_F_Barrel
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -472,7 +510,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0.040749997, z: 0.067499995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 9067966014098741846}
   m_Father: {fileID: 6562580326896265372}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1612391136423040502
@@ -538,7 +577,7 @@ GameObject:
   - component: {fileID: 5797148402032136237}
   m_Layer: 6
   m_Name: Pistol_F_BarrelGuard.001
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -621,7 +660,7 @@ GameObject:
   - component: {fileID: 579789750511577855}
   m_Layer: 6
   m_Name: Pistol_F_Trigger
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -691,3 +730,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8099812639981610818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9067966014098741846}
+  m_Layer: 6
+  m_Name: Muzzle
+  m_TagString: Weapon
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9067966014098741846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8099812639981610818}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 988729587433179749}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

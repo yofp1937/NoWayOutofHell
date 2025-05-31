@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerLook : MonoBehaviour
 {
     [Header("# Main Data")]
-    public float Sensitivity = 100f; // 마우스 감도
+    public float Sensitivity = 30f; // 마우스 감도
+    [SerializeField] float _maxVerticalAngle = 60f; // 위로 볼수있는 최대 각도
+    [SerializeField] float _minVerticalAngle = 325f; // 아래로 볼수있는 최대 각도
 
     [Header("# Reference Data")]
     [SerializeField] Transform _camArm;
@@ -21,11 +23,11 @@ public class PlayerLook : MonoBehaviour
 
         if(xRotation < 180)
         {
-            xRotation = Mathf.Clamp(xRotation, -1f, 55f);
+            xRotation = Mathf.Clamp(xRotation, -1f, _maxVerticalAngle);
         }
         else
         {
-            xRotation = Mathf.Clamp(xRotation, 335f, 361f);
+            xRotation = Mathf.Clamp(xRotation, _minVerticalAngle, 361f);
         }
 
         _camArm.rotation = Quaternion.Euler(xRotation, camAngle.y + mouseX, camAngle.z);

@@ -5,10 +5,17 @@ using TMPro;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI promptText;
+    [Header("# Player UI Data")]
+    [SerializeField] TextMeshProUGUI _interactText;
+    [SerializeField] TextMeshProUGUI _ammoText;
 
-    public void UpdateText(string promptMessage)
+    public void UpdateInteractText(string message)
     {
-        promptText.text = promptMessage;
+        _interactText.text = message;
+    }
+
+    public void UpdateAmmoText(string message)
+    {
+        _ammoText.text = message;
     }
 }

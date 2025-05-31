@@ -29,7 +29,6 @@ public class PlayerAnimationController : MonoBehaviour
         {
             case WeaponEnum.Rifle:
             case WeaponEnum.ShotGun:
-            case WeaponEnum.Sniper:
                 return "Main";
             case WeaponEnum.Pistol:
                 return "Pistol";

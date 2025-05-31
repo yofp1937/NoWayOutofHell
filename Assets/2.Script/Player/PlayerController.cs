@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     // Delegate
     public delegate void OnShotDelegate();
     public OnShotDelegate OnShotAction;
+    public delegate void OnReloadDelegate();
+    public OnReloadDelegate OnReloadAction;
 
     void Awake()
     {
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
         Player.Jump.performed += e => _movement.Jump();
         Player.Shot.performed += e => OnShotAction?.Invoke();
         Player.ChangeWeapon.performed += OnChangeWeapon;
+        Player.Reload.performed += e => OnReloadAction?.Invoke();
 
         LockCursor(true); // 시작 시 마우스 고정
     }
@@ -65,5 +68,6 @@ public class PlayerController : MonoBehaviour
     {
         int inputValue = int.Parse(context.control.name); // 키보드 1,2,3,4 입력 받아오기
         _playerItem.ChangeWeapon(inputValue); // PlayerItem의 ChangeWeapon 호출
+        // TODO Weapon의 Coroutine 종료(무기 장전중이면 취소)
     }
 }
