@@ -9,9 +9,15 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] float _maxVerticalAngle = 60f; // 위로 볼수있는 최대 각도
     [SerializeField] float _minVerticalAngle = 325f; // 아래로 볼수있는 최대 각도
 
-    [Header("# Reference Data")]
+    [Header("# External Reference Data")]
     [SerializeField] Transform _camArm;
     [SerializeField] Transform _upperBody;
+    [SerializeField] RecoilHandler _recoilHandler;
+
+    void Update()
+    {
+        _recoilHandler.RecoilBack();
+    }
 
     public void ProcessLook(Vector2 input)
     {
@@ -21,7 +27,7 @@ public class PlayerLook : MonoBehaviour
 
         float xRotation = camAngle.x - mouseY;
 
-        if(xRotation < 180)
+        if (xRotation < 180)
         {
             xRotation = Mathf.Clamp(xRotation, -1f, _maxVerticalAngle);
         }
@@ -31,5 +37,10 @@ public class PlayerLook : MonoBehaviour
         }
 
         _camArm.rotation = Quaternion.Euler(xRotation, camAngle.y + mouseX, camAngle.z);
+    }
+
+    public void Recoil(Vector3 recoilKickBack, float recoilAmount)
+    {
+        _recoilHandler.Recoil(recoilKickBack, recoilAmount);
     }
 }

@@ -24,6 +24,8 @@ public class PlayerItem : MonoBehaviour
     {
         _playerAnimController = GetComponent<PlayerAnimationController>();
         _playerUI = GetComponent<PlayerUI>();
+
+        MainT.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -120,7 +122,15 @@ public class PlayerItem : MonoBehaviour
 
     public void GetAmmo()
     {
-        MainWeapon.GetAmmo();
+        if (MainWeapon != null)
+        {
+            MainWeapon.GetAmmo();
+        }
         SubWeapon.GetAmmo();
+
+        if (MainT.gameObject.activeSelf)
+        {
+            _playerUI.UpdateAmmoText(MainWeapon.GetAmmoStatus());
+        }
     }
 }

@@ -11,7 +11,7 @@ public class AmmoData
     public int LoadedAmmo; // 장전된 총알 수
     public int RemainAmmo; // 남은 총알 수
     public float ReloadTime; // 장전에 필요한 시간
-    public float BulletSpeed; // 총알의 속도
+    public float AmmoSpeed; // 총알의 속도
 
     public void Clone(GunData data)
     {
@@ -20,7 +20,7 @@ public class AmmoData
         LoadedAmmo = data.LoadedAmmo;
         RemainAmmo = data.RemainAmmo;
         ReloadTime = data.ReloadTime;
-        BulletSpeed = data.BulletSpeed;
+        AmmoSpeed = data.AmmoSpeed;
     }
 }
 
@@ -33,9 +33,12 @@ public class GunData : WeaponData
     public int LoadedAmmo; // 장전된 총알 수
     public int RemainAmmo; // 남은 총알 수
     public float ReloadTime; // 장전에 필요한 시간
-    public float BulletSpeed; // 총알의 속도
+    public float AmmoSpeed; // 총알의 속도
 
-    // TODO 반동(Recoil) 만들기
+    [Header("# Recoil Data")]
+    public Vector3 RecoilKickBack = new Vector3(0.05f, 0.1f, 0f); // x: 좌우 반동, y: 수직 반동, z: 반동
+    public float RecoilAmount = 0.1f; // 값이 클수록 반동이 커짐
+
     // TODO 탄퍼짐(Spread) 만들기
     // TODO 정조준(Aiming) 만들기
 }

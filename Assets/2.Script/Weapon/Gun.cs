@@ -31,7 +31,23 @@ public class Gun : Weapon, IReloadable
 
     public virtual void Shot()
     {
+        if (!CanShot)
+        {
+            Debug.LogError($"{gameObject.name}의 canShot: false");
+            return;
+        }
+        if (IsReloading)
+        {
+            Debug.LogError($"{gameObject.name}이 장전중");
+            return;
+        }
+        if (0 >= AmmoData.LoadedAmmo)
+        {
+            Debug.LogError($"{gameObject.name}의 잔탄 0");
+            return;
+        }
         _shotHandler.Shot();
+        PlayerLook.Recoil(_data.RecoilKickBack, _data.RecoilAmount);
 
         // 발사 이후
         // 2.사운드 재생
@@ -77,7 +93,7 @@ public class Gun : Weapon, IReloadable
         CanShot = true;
         IsReloading = false;
     }
-    
+
     protected override void DisconnectDelegate()
     {
         if (PlayerController == null) return;

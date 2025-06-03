@@ -18,6 +18,7 @@ public abstract class Weapon : Interactable
     [HideInInspector] public PlayerItem PlayerItem;
     [HideInInspector] public PlayerInteract PlayerInteract;
     [HideInInspector] public PlayerUI PlayerUI;
+    [HideInInspector] public PlayerLook PlayerLook;
 
     void Awake()
     {
@@ -82,6 +83,7 @@ public abstract class Weapon : Interactable
         PlayerItem = Player.GetComponent<PlayerItem>();
         PlayerInteract = Player.GetComponent<PlayerInteract>();
         PlayerUI = Player.GetComponent<PlayerUI>();
+        PlayerLook = Player.GetComponent<PlayerLook>();
         _col.enabled = false;
         _rigid.useGravity = false;
     }
@@ -94,6 +96,7 @@ public abstract class Weapon : Interactable
         PlayerItem = null;
         PlayerInteract = null;
         PlayerUI = null;
+        PlayerLook = null;
         _col.enabled = true;
         _rigid.useGravity = true;
     }

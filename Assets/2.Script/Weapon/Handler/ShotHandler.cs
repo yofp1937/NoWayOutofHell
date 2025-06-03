@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShotHandler : MonoBehaviour, IShootable
 {
     [Header("# External Reference Data")]
-    private Gun _gun;
+    Gun _gun;
 
     void Awake()
     {
@@ -17,22 +17,6 @@ public class ShotHandler : MonoBehaviour, IShootable
     /// </summary>
     public void Shot()
     {
-        if (!_gun.CanShot)
-        {
-            Debug.LogError($"{gameObject.name}의 canShot: false");
-            return;
-        }
-        if (_gun.IsReloading)
-        {
-            Debug.LogError($"{gameObject.name}이 장전중");
-            return;
-        }
-        if (0 >= _gun.AmmoData.LoadedAmmo)
-        {
-            Debug.LogError($"{gameObject.name}의 잔탄 0");
-            return;
-        }
-
         _gun.CanShot = false;
 
         // Crosshair를 바라보게 방향 전환
@@ -62,7 +46,8 @@ public class ShotHandler : MonoBehaviour, IShootable
         // 2.방향 계산 및 힘주기(Bullet 컴포넌트에서 실행)
         Vector3 shootDir = _gun.PlayerInteract.InteractRay.direction.normalized;
         bullet.transform.forward = shootDir;
-        bullet.GetComponent<Bullet>().FireToTarget(_gun.AmmoData.BulletSpeed, shootDir);
+        // Damage도 전달해야함
+        bullet.GetComponent<Bullet>().FireToTarget(_gun.Data.Damage, _gun.AmmoData.AmmoSpeed, shootDir);
     }
 
     private IEnumerator ShotCoolDown()

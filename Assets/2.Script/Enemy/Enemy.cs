@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public float MoveSpeed;
     public float Damage = 3f;
     public bool IsRun;
+    public bool IsLive;
 
     [Header("# State Data")]
     [SerializeField] string _currentState;
@@ -25,7 +26,7 @@ public class Enemy : MonoBehaviour
 
     [Header("# AttackRange Variable")]
     [SerializeField] float _attackRayDistance = 1f;
-    
+
     [Header("# Reference Data")]
     public Animator Anim;
     [SerializeField] GameObject _player;
@@ -42,14 +43,14 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         _currentState = _stateMachine.ActiveState.ToString();
-        if(Player == null)
+        if (Player == null)
         {
             FindPlayerInSight();
         }
         else
         {
             _detectTimer += Time.deltaTime;
-            if(_detectTimer >= _detectCycle)
+            if (_detectTimer >= _detectCycle)
             {
                 ResetDetectTimer();
                 FindPlayerInSight();
@@ -69,6 +70,7 @@ public class Enemy : MonoBehaviour
     {
         _player = null;
         IsRun = Random.Range(0f, 100f) >= 80f;
+        IsLive = true;
         MoveSpeed = IsRun ? 3.5f : 1f;
         ResetDetectTimer();
         _stateMachine.Init();
@@ -89,9 +91,9 @@ public class Enemy : MonoBehaviour
     void FindPlayerInSight()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, _sightDistance);
-        foreach(var hit in hits)
+        foreach (var hit in hits)
         {
-            if(hit.CompareTag("Player") && IsInSightAngle(hit)) // 플레이어가 시야각 내에 들어와있는가?
+            if (hit.CompareTag("Player") && IsInSightAngle(hit)) // 플레이어가 시야각 내에 들어와있는가?
             {
                 _player = hit.gameObject;
                 Anim.SetBool("HasTarget", true);
@@ -108,9 +110,9 @@ public class Enemy : MonoBehaviour
         Vector3 targetDir = Player.transform.position - transform.position;
         Ray ray = new Ray(transform.position + (Vector3.up * _eyeHeight), targetDir);
         RaycastHit hitInfo = new RaycastHit();
-        if(Physics.Raycast(ray, out hitInfo, _sightDistance))
+        if (Physics.Raycast(ray, out hitInfo, _sightDistance))
         {
-            if(hitInfo.transform.gameObject == Player)
+            if (hitInfo.transform.gameObject == Player)
             {
                 Debug.DrawRay(ray.origin, ray.direction * _sightDistance);
             }
@@ -135,9 +137,9 @@ public class Enemy : MonoBehaviour
         Ray ray = new Ray(transform.position + (Vector3.up * 1f), transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * _attackRayDistance, Color.red);
         RaycastHit hitInfo;
-        if(Physics.Raycast(ray, out hitInfo, _attackRayDistance))
+        if (Physics.Raycast(ray, out hitInfo, _attackRayDistance))
         {
-            if(hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
+            if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
                 _playerHealth = hitInfo.transform.gameObject.GetComponent<PlayerHealth>();
             }
@@ -150,5 +152,24 @@ public class Enemy : MonoBehaviour
     public void TakeDamageToPlayer()
     {
         _playerHealth.TakeDamage(Damage);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (!IsLive) return;
+
+        Hp -= damage;
+
+        if (0 >= Hp)
+        {
+            Dead();
+        }
+    }
+
+    private void Dead()
+    {
+        // 애니메이션 실행후 대기한뒤 Dead 실행
+        IsLive = false;
+        gameObject.SetActive(false);
     }
 }

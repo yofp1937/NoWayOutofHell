@@ -203,6 +203,7 @@ MonoBehaviour:
     LoadedAmmo: 0
     RemainAmmo: 0
     ReloadTime: 0
+    BulletSpeed: 0
   CanShot: 1
   IsReloading: 0
   Bullet: {fileID: 5649216475670180008, guid: 218f9172d89a65e4086eb72dff56b317, type: 3}

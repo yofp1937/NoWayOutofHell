@@ -1840,10 +1840,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2047b357db865a42826aed5046c9935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 0
+  Hp: 100
   MoveSpeed: 0
   Damage: 3
   IsRun: 0
+  IsLive: 0
   _currentState: 
   Agent: {fileID: 0}
   _sightDistance: 12.5
@@ -1851,6 +1852,7 @@ MonoBehaviour:
   _eyeHeight: 1
   _attackRayDistance: 1
   Anim: {fileID: 0}
+  _player: {fileID: 0}
 --- !u!114 &2548699430195913240
 MonoBehaviour:
   m_ObjectHideFlags: 0
