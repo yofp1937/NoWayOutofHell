@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Melee : Weapon, IShootable
+public class Melee : Weapon
 {
     private MeleeData Data => base.Data as MeleeData;
     public virtual void Shot()

@@ -458,8 +458,9 @@ GameObject:
   - component: {fileID: 4151234972844168596}
   - component: {fileID: -8338772047188353984}
   - component: {fileID: -3191082773157327477}
-  - component: {fileID: -2372902951989637348}
-  - component: {fileID: 8327281033408025500}
+  - component: {fileID: -5534820463432430481}
+  - component: {fileID: -1697321559205291087}
+  - component: {fileID: -7514091702775895984}
   m_Layer: 6
   m_Name: ShotGunAuto
   m_TagString: Weapon
@@ -564,17 +565,19 @@ MonoBehaviour:
   PlayerItem: {fileID: 0}
   PlayerInteract: {fileID: 0}
   PlayerUI: {fileID: 0}
+  PlayerLook: {fileID: 0}
   AmmoData:
     MaxAmmo: 0
     MaxLoadedAmmo: 0
     LoadedAmmo: 0
     RemainAmmo: 0
     ReloadTime: 0
+    AmmoSpeed: 0
   CanShot: 1
   IsReloading: 0
   Bullet: {fileID: 4948304750745466347, guid: 0b06c9f960b5da64cbe7baf57569248b, type: 3}
   Muzzle: {fileID: 2619491556088077814}
---- !u!114 &-2372902951989637348
+--- !u!114 &-5534820463432430481
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -583,10 +586,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2932640980190783236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bc19c26d0aedaf409c42f8c112104f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7de6d6b113e6abd40ad9d9ff78c515d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8327281033408025500
+--- !u!114 &-1697321559205291087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -595,9 +598,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 2932640980190783236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 217d62f0f45f2754c815eb14cd18aced, type: 3}
+  m_Script: {fileID: 11500000, guid: ec6c03a314260e84d9625474402eb7ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-7514091702775895984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2932640980190783236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce507117af492442a38b0f55ed77763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spreadAngle: 7.5
 --- !u!1 &3691993328751055396
 GameObject:
   m_ObjectHideFlags: 0

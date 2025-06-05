@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReloadHandler : MonoBehaviour, IReloadHandler
+public class ShotGunReloadHandler : MonoBehaviour, IReloadHandler
 {
     [Header("# External Reference Data")]
     Gun _gun;
+    bool _isCancledCoroutine;
 
     void Awake()
     {
@@ -31,7 +32,7 @@ public class ReloadHandler : MonoBehaviour, IReloadHandler
         }
 
         ReloadEnter();
-        StartCoroutine(Reloading());
+        _gun.ReloadCoroutine = StartCoroutine(Reloading());
     }
 
     void ReloadEnter()
@@ -39,26 +40,36 @@ public class ReloadHandler : MonoBehaviour, IReloadHandler
         Debug.Log($"{gameObject.name} 장전 시작");
         _gun.CanShot = false;
         _gun.IsReloading = true;
+        _isCancledCoroutine = false;
     }
 
     IEnumerator Reloading() // 장전 시작
     {
-        yield return new WaitForSeconds(_gun.AmmoData.ReloadTime);
+        while (_gun.AmmoData.MaxLoadedAmmo > _gun.AmmoData.LoadedAmmo && _gun.AmmoData.RemainAmmo > 0)
+        {
+            if (_isCancledCoroutine)
+            {
+                Debug.Log($"{gameObject.name}의 장전 강제 종료");
+                break;
+            }
+            yield return new WaitForSeconds(_gun.AmmoData.ReloadTime);
 
-        if (_gun.AmmoData.RemainAmmo == -1)
-        {
-            _gun.AmmoData.LoadedAmmo = _gun.AmmoData.MaxLoadedAmmo;
-        }
-        else
-        {
-            int _reloadAmmo = Mathf.Min(_gun.AmmoData.MaxLoadedAmmo - _gun.AmmoData.LoadedAmmo, _gun.AmmoData.RemainAmmo); // _maxLoadedAmmo를 넘기지않도록 계산
-            _gun.AmmoData.LoadedAmmo += _reloadAmmo;
-            _gun.AmmoData.RemainAmmo -= _reloadAmmo;
+            _gun.AmmoData.LoadedAmmo += 1;
+            _gun.AmmoData.RemainAmmo -= 1;
+
+            _gun.PlayerUI.UpdateAmmoText(_gun.GetAmmoStatus());
         }
 
         _gun.CanShot = true;
         _gun.IsReloading = false;
-        _gun.PlayerUI.UpdateAmmoText(_gun.GetAmmoStatus());
-        Debug.Log($"{gameObject.name} 장전 완료");
+        _gun.ReloadCoroutine = null;
+    }
+
+    public void StopReloadCoroutine()
+    {
+        _isCancledCoroutine = true;
+        StopCoroutine(_gun.ReloadCoroutine);
+        _gun.IsReloading = false;
+        _gun.CanShot = true;
     }
 }

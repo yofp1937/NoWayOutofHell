@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Gun : Weapon, IReloadable
+public class Gun : Weapon
 {
     private GunData _data => Data as GunData;
     // Data를 복사해서 사용하는 변수를 만들고 해당 변수에 접근해서 값을 변경해야함(참조 X)
+
+    [Header("# Gun's Shot Data")]
+    Coroutine _shotCoroutine;
 
     [Header("# Gun's Ammo Data")]
     public AmmoData AmmoData;
@@ -13,44 +17,61 @@ public class Gun : Weapon, IReloadable
 
     [Header("# Gun's Reload Data")]
     public bool IsReloading = false;
+    public Coroutine ReloadCoroutine;
 
     [Header("# Gun's Reference Data")]
     public GameObject Bullet;
     public Transform Muzzle; // 총구
 
     [Header("# Gun's Handler")]
-    private ShotHandler _shotHandler;
-    private ReloadHandler _reloadHandler;
+    [SerializeField] IShotHandler _shotHandler;
+    [SerializeField] IReloadHandler _reloadHandler;
 
     protected override void Init()
     {
         AmmoData.Clone(_data);
-        _shotHandler = GetComponent<ShotHandler>();
-        _reloadHandler = GetComponent<ReloadHandler>();
+        _shotHandler = GetComponent<IShotHandler>();
+        _reloadHandler = GetComponent<IReloadHandler>();
     }
 
     public virtual void Shot()
     {
-        if (!CanShot)
+        if (_shotCoroutine == null)
         {
-            Debug.LogError($"{gameObject.name}의 canShot: false");
-            return;
+            _shotCoroutine = StartCoroutine(ShotCoroutine());
         }
-        if (IsReloading)
-        {
-            Debug.LogError($"{gameObject.name}이 장전중");
-            return;
-        }
-        if (0 >= AmmoData.LoadedAmmo)
-        {
-            Debug.LogError($"{gameObject.name}의 잔탄 0");
-            return;
-        }
-        _shotHandler.Shot();
-        PlayerLook.Recoil(_data.RecoilKickBack, _data.RecoilAmount);
+    }
 
-        // 발사 이후
-        // 2.사운드 재생
+    IEnumerator ShotCoroutine()
+    {
+        while (true)
+        {
+            if (ReloadCoroutine != null)
+            {
+                (_reloadHandler as ShotGunReloadHandler)?.StopReloadCoroutine();
+                ReloadCoroutine = null;
+            }
+            if (!PlayerController.IsHoldingShotKey || !CanShot)
+            {
+                break;
+            }
+            if (_data.WeaponType != WeaponEnum.ShotGun && IsReloading)
+            {
+                break;
+            }
+            if (AmmoData.LoadedAmmo == 0)
+            {
+                Reload();
+                break;
+            }
+
+            _shotHandler.Shot();
+            // TODO 사운드 재생
+            PlayerLook.Recoil(_data.RecoilKickBack, _data.RecoilAmount);
+
+            yield return new WaitForSeconds(_data.FireRate);
+        }
+        _shotCoroutine = null;
     }
 
     public void Reload()

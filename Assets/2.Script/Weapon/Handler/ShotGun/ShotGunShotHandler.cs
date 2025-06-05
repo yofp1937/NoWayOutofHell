@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotHandler : MonoBehaviour, IShotHandler
+public class ShotGunShotHandler : MonoBehaviour, IShotHandler
 {
     [Header("# External Reference Data")]
     Gun _gun;
+    SpreadHandler _spreadHandler;
 
     void Awake()
     {
         _gun = GetComponent<Gun>();
+        _spreadHandler = GetComponent<SpreadHandler>();
     }
 
     /// <summary>
@@ -38,16 +40,20 @@ public class ShotHandler : MonoBehaviour, IShotHandler
 
     private void ShootBullet()
     {
-        // 1.총알 생성
-        GameObject bullet = PoolManager.Instance.Get(_gun.Bullet);
-        bullet.transform.position = _gun.Muzzle.position;
-        bullet.transform.forward = _gun.Muzzle.forward;
-        bullet.transform.parent = PoolManager.Instance.transform;
+        int bulletCount = (_gun.AmmoData.MaxLoadedAmmo == 8) ? 10 : 11; // 일반 샷건이면 10발, 자동 샷건이면 11발
 
-        // 2.방향 계산 및 힘주기(Bullet 컴포넌트에서 실행)
-        Vector3 shootDir = _gun.PlayerInteract.InteractRay.direction.normalized;
-        // Damage도 전달해야함
-        bullet.GetComponent<Bullet>().FireToTarget(_gun.Data.Damage, _gun.AmmoData.AmmoSpeed, shootDir);
+        List<Vector3> directions = _spreadHandler.GetSpreadDirections(bulletCount);
+
+        for (int i = 0; i < bulletCount; i++)
+        {
+            GameObject bullet = PoolManager.Instance.Get(_gun.Bullet);
+            bullet.transform.position = _gun.Muzzle.position;
+            bullet.transform.forward = _gun.Muzzle.forward;
+            bullet.transform.parent = PoolManager.Instance.transform;
+
+            bullet.transform.rotation = Quaternion.LookRotation(directions[i]);
+            bullet.GetComponent<Bullet>().FireToTarget(_gun.Data.Damage, _gun.AmmoData.AmmoSpeed, directions[i]);
+        }
     }
 
     private IEnumerator ShotCoolDown()

@@ -542,8 +542,9 @@ GameObject:
   - component: {fileID: 2900658829870843525}
   - component: {fileID: 2057293486731566234}
   - component: {fileID: -1580634569855730890}
-  - component: {fileID: 8603004504984761947}
-  - component: {fileID: 1642437884846862701}
+  - component: {fileID: 8736991935185916064}
+  - component: {fileID: 4715247746385399909}
+  - component: {fileID: 7936001312217474950}
   m_Layer: 6
   m_Name: ShotGun
   m_TagString: Weapon
@@ -643,17 +644,19 @@ MonoBehaviour:
   PlayerItem: {fileID: 0}
   PlayerInteract: {fileID: 0}
   PlayerUI: {fileID: 0}
+  PlayerLook: {fileID: 0}
   AmmoData:
     MaxAmmo: 0
     MaxLoadedAmmo: 0
     LoadedAmmo: 0
     RemainAmmo: 0
     ReloadTime: 0
+    AmmoSpeed: 0
   CanShot: 1
   IsReloading: 0
   Bullet: {fileID: 3489922258393200078, guid: 4d409630e9aa0d74cb9e7359305b15c6, type: 3}
   Muzzle: {fileID: 1097456941904169572}
---- !u!114 &8603004504984761947
+--- !u!114 &8736991935185916064
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -662,10 +665,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9209568620739521198}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bc19c26d0aedaf409c42f8c112104f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7de6d6b113e6abd40ad9d9ff78c515d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1642437884846862701
+--- !u!114 &4715247746385399909
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -674,6 +677,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 9209568620739521198}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 217d62f0f45f2754c815eb14cd18aced, type: 3}
+  m_Script: {fileID: 11500000, guid: ec6c03a314260e84d9625474402eb7ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7936001312217474950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9209568620739521198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce507117af492442a38b0f55ed77763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spreadAngle: 7.5

@@ -20,4 +20,6 @@ MonoBehaviour:
   LoadedAmmo: 40
   RemainAmmo: 360
   ReloadTime: 2.3833
-  BulletSpeed: 80
+  AmmoSpeed: 150
+  RecoilKickBack: {x: 0.05, y: 0.1, z: 0}
+  RecoilAmount: 0.1

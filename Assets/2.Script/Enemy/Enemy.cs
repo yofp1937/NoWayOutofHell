@@ -148,7 +148,7 @@ public class Enemy : MonoBehaviour
         return false;
     }
 
-    // 해당 함수는 Animation 탭의 Timeline에서 Add Event로 추가하여 사용중
+    // 해당 함수는 Animation 탭의 Z_Attack 애니메이션의 Timeline에서 Add Event로 추가하여 사용중
     public void TakeDamageToPlayer()
     {
         _playerHealth.TakeDamage(Damage);
@@ -162,14 +162,14 @@ public class Enemy : MonoBehaviour
 
         if (0 >= Hp)
         {
-            Dead();
+            // TODO BaseState 변경 DeadState로(만들어야함
+            _stateMachine.ChangeState(new DeadState());
         }
     }
 
-    private void Dead()
+    // 해당 함수는 Animation 탭의 Z_FallingBack, Z_FallingForward 두 애니메이션의 Timeline에서 Add Event로 추가하여 사용중
+    public void Dead()
     {
-        // 애니메이션 실행후 대기한뒤 Dead 실행
-        IsLive = false;
         gameObject.SetActive(false);
     }
 }

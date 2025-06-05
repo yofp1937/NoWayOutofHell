@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [Header("# Main Data")]
     PlayerInput _playerInput;
     public PlayerInput.PlayerActions Player;
+    public bool IsHoldingShotKey;
 
     [Header("# Reference Data")]
     PlayerMovement _movement;
@@ -31,11 +32,20 @@ public class PlayerController : MonoBehaviour
         _playerItem = GetComponent<PlayerItem>();
 
         Player.Jump.performed += e => _movement.Jump();
-        Player.Shot.performed += e => OnShotAction?.Invoke();
         Player.ChangeWeapon.performed += OnChangeWeapon;
         Player.Reload.performed += e => OnReloadAction?.Invoke();
 
         LockCursor(true); // 시작 시 마우스 고정
+    }
+
+    void Update()
+    {
+        IsHoldingShotKey = Player.Shot.ReadValue<float>() > 0 ? true : false;
+
+        if (IsHoldingShotKey)
+        {
+            OnShotAction?.Invoke();
+        }
     }
 
     void FixedUpdate()
@@ -68,6 +78,5 @@ public class PlayerController : MonoBehaviour
     {
         int inputValue = int.Parse(context.control.name); // 키보드 1,2,3,4 입력 받아오기
         _playerItem.ChangeWeapon(inputValue); // PlayerItem의 ChangeWeapon 호출
-        // TODO Weapon의 Coroutine 종료(무기 장전중이면 취소)
     }
 }

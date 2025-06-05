@@ -55,11 +55,13 @@ public class Bullet : MonoBehaviour
             {
                 hitObj.GetComponent<Enemy>().TakeDamage(damage);
             }
-            // 무언가랑 부딪히면 출력 후 비활성화
-                Debug.Log($"[Bullet]: {collision.gameObject.name}와(과) 충돌");
-            gameObject.SetActive(false);
 
-            // TODO Enemy와 부딪히면 Enemy.TakeDamage 실행
+            // Debug용 코드
+            // GameObject obj = PoolManager.Instance.Get(PoolManager.Instance.DebugObj);
+            // obj.transform.position = collision.contacts[0].point;
+            // obj.transform.parent = PoolManager.Instance.DebugT;
+
+            gameObject.SetActive(false);
         }
     }
 
