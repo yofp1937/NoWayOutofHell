@@ -43,6 +43,7 @@ public class ReloadHandler : MonoBehaviour, IReloadHandler
 
     IEnumerator Reloading() // 장전 시작
     {
+        _gun.AudioHandler.PlayReloadAudio();
         yield return new WaitForSeconds(_gun.AmmoData.ReloadTime);
 
         if (_gun.AmmoData.RemainAmmo == -1)
@@ -58,7 +59,7 @@ public class ReloadHandler : MonoBehaviour, IReloadHandler
 
         _gun.CanShot = true;
         _gun.IsReloading = false;
-        _gun.PlayerUI.UpdateAmmoText(_gun.GetAmmoStatus());
+        _gun.PlayerUI.UpdateAmmoAction?.Invoke(_gun.GetAmmoStatus());
         Debug.Log($"{gameObject.name} 장전 완료");
     }
 }

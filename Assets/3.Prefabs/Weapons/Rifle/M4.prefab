@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6642383236301723706}
   - component: {fileID: 7568129055493812832}
   - component: {fileID: 2710245588308465360}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_A_Barrel
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 4423227209364260813}
   - component: {fileID: 4462672000279397995}
   - component: {fileID: 5445012350354258814}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_A_Grip
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 6229564456383013265}
   - component: {fileID: 6856621646063771753}
   - component: {fileID: 8231315684876909008}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_A_Sight
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 559608790406286170}
   - component: {fileID: 2071726173718283983}
   - component: {fileID: 5473919556654598650}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_A_Mag
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 1463129304429955804}
   - component: {fileID: 6909562952834185171}
   - component: {fileID: 5921511153555125662}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_A_Receiver_Down
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 821896605453764465}
   - component: {fileID: 6614765365082981090}
   - component: {fileID: 887237793275094248}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_A_Stock
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -510,7 +510,7 @@ GameObject:
   - component: {fileID: 701292661907800030}
   - component: {fileID: 8509371160271760060}
   - component: {fileID: 6192542432017793962}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_A_BarrelGuard_Rail
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -596,7 +596,8 @@ GameObject:
   - component: {fileID: -645116666754884184}
   - component: {fileID: -3657591201558166246}
   - component: {fileID: -2504036591439150949}
-  m_Layer: 6
+  - component: {fileID: 2794126855865918647}
+  m_Layer: 15
   m_Name: M4
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -700,16 +701,19 @@ MonoBehaviour:
   PlayerItem: {fileID: 0}
   PlayerInteract: {fileID: 0}
   PlayerUI: {fileID: 0}
+  PlayerLook: {fileID: 0}
   AmmoData:
     MaxAmmo: 0
     MaxLoadedAmmo: 0
     LoadedAmmo: 0
     RemainAmmo: 0
     ReloadTime: 0
+    AmmoSpeed: 0
   CanShot: 1
   IsReloading: 0
   Bullet: {fileID: 9012874731585123008, guid: 1c9d6be45c3e26243aaec89e7acfbec9, type: 3}
   Muzzle: {fileID: 6629717681286263872}
+  AudioHandler: {fileID: 0}
 --- !u!114 &-3657591201558166246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,6 +738,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217d62f0f45f2754c815eb14cd18aced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2794126855865918647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185518912306324553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b0800d122c9ff4abfc38dd8cac9573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4638949467097366829
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,7 +761,7 @@ GameObject:
   - component: {fileID: 3465316993569334593}
   - component: {fileID: 4567781979395656638}
   - component: {fileID: 3817103850363266680}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_A_Receiver_Up
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -826,7 +842,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6629717681286263872}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: Muzzle
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -859,7 +875,7 @@ GameObject:
   - component: {fileID: 4191794320225550539}
   - component: {fileID: 3571084841021164717}
   - component: {fileID: 4699324437517989664}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_A_Rail
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -942,7 +958,7 @@ GameObject:
   - component: {fileID: 244453420088117072}
   - component: {fileID: 7247737010417673568}
   - component: {fileID: 8008821597837332461}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_A_Trigger
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -1025,7 +1041,7 @@ GameObject:
   - component: {fileID: 4065799151207523083}
   - component: {fileID: 7335006910390786658}
   - component: {fileID: 9007649579228396840}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_A_BarrelGuard
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -1109,7 +1125,7 @@ GameObject:
   - component: {fileID: 5596398737843595126}
   - component: {fileID: 5853794144044150951}
   - component: {fileID: 841515749759792023}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_A_Bolt
   m_TagString: Weapon
   m_Icon: {fileID: 0}

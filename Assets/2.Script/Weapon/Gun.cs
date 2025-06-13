@@ -13,7 +13,6 @@ public class Gun : Weapon
 
     [Header("# Gun's Ammo Data")]
     public AmmoData AmmoData;
-    public bool CanShot = true;
 
     [Header("# Gun's Reload Data")]
     public bool IsReloading = false;
@@ -21,17 +20,19 @@ public class Gun : Weapon
 
     [Header("# Gun's Reference Data")]
     public GameObject Bullet;
-    public Transform Muzzle; // 총구
+    public Transform Muzzle;
 
     [Header("# Gun's Handler")]
     [SerializeField] IShotHandler _shotHandler;
     [SerializeField] IReloadHandler _reloadHandler;
+    [HideInInspector] public AudioHandler AudioHandler;
 
     protected override void Init()
     {
         AmmoData.Clone(_data);
         _shotHandler = GetComponent<IShotHandler>();
         _reloadHandler = GetComponent<IReloadHandler>();
+        AudioHandler = GetComponent<AudioHandler>();
     }
 
     public virtual void Shot()
@@ -66,7 +67,6 @@ public class Gun : Weapon
             }
 
             _shotHandler.Shot();
-            // TODO 사운드 재생
             PlayerLook.Recoil(_data.RecoilKickBack, _data.RecoilAmount);
 
             yield return new WaitForSeconds(_data.FireRate);
@@ -110,6 +110,7 @@ public class Gun : Weapon
         if (PlayerController == null) return;
         PlayerController.OnShotAction += Shot;
         PlayerController.OnReloadAction += Reload;
+        PlayerLook.OnAimChanged += HandleAimChanged;
 
         CanShot = true;
         IsReloading = false;
@@ -120,5 +121,22 @@ public class Gun : Weapon
         if (PlayerController == null) return;
         PlayerController.OnShotAction -= Shot;
         PlayerController.OnReloadAction -= Reload;
+        PlayerLook.OnAimChanged -= HandleAimChanged;
+    }
+
+    void HandleAimChanged(bool isAiming)
+    {
+        if (isAiming)
+        {
+            AmmoData.RecoilKickBack = new Vector3(0.0025f, 0.005f, 0);
+            AmmoData.RecoilAmount = 0.0025f;
+            // Debug.Log($"{gameObject.name}'s x: {AmmoData.RecoilKickBack.x}, y: {AmmoData.RecoilKickBack.y}, z: {AmmoData.RecoilKickBack.z}, Amount: {AmmoData.RecoilAmount}");
+        }
+        else
+        {
+            AmmoData.RecoilKickBack = _data.RecoilKickBack;
+            AmmoData.RecoilAmount = _data.RecoilAmount;
+            // Debug.Log($"{gameObject.name}'s x: {AmmoData.RecoilKickBack.x}, y: {AmmoData.RecoilKickBack.y}, z: {AmmoData.RecoilKickBack.z}, Amount: {AmmoData.RecoilAmount}");
+        }
     }
 }

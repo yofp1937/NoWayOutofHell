@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,12 @@ public class PlayerLook : MonoBehaviour
 
     [Header("# External Reference Data")]
     [SerializeField] Transform _camArm;
-    [SerializeField] Transform _upperBody;
+    [SerializeField] Camera _cam;
     [SerializeField] RecoilHandler _recoilHandler;
+
+    [Header("# Aiming")]
+    public bool IsAiming;
+    public Action<bool> OnAimChanged;
 
     void Update()
     {
@@ -42,5 +47,31 @@ public class PlayerLook : MonoBehaviour
     public void Recoil(Vector3 recoilKickBack, float recoilAmount)
     {
         _recoilHandler.Recoil(recoilKickBack, recoilAmount);
+    }
+
+    public void Aiming()
+    {
+        IsAiming = !IsAiming;
+
+        _cam.fieldOfView = IsAiming ? 20 : 60;
+        OnAimChanged?.Invoke(IsAiming);
+    }
+
+    public Vector3 GetCenterObjPosition(Vector3 baseT)
+    {
+        Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+        Vector3 targetPoint;
+        float maxDistance = 150f;
+
+        if (Physics.Raycast(ray, out hit, maxDistance))
+        {
+            targetPoint = hit.point;
+        }
+        else
+        {
+            targetPoint = ray.origin + ray.direction * maxDistance;
+        }
+        return targetPoint;
     }
 }

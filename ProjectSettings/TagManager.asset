@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Laser Line
   - Enemy
   - Weapon
   - Cloth
@@ -11,19 +12,19 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - No Player Collision
   - Water
   - UI
+  - Enemy
+  - 
+  - Player
+  - 
+  - 
+  - Post-Procssing
+  - FPS Object
+  - Enviroment
+  - 
   - Interactable
-  - Ground
-  - Zombie
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
   - 
   - 
   - 

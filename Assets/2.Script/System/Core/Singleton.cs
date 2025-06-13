@@ -69,7 +69,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
     }
     private void OnDestroy()
     {
-        m_ShuttingDown = true;
+        m_ShuttingDown = false;
     }
 }
 
@@ -125,6 +125,6 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
     }
     private void OnDestroy()
     {
-        m_ShuttingDown = true;
+        m_ShuttingDown = false;
     }
 }

@@ -4,23 +4,28 @@ using UnityEngine;
 
 public class Melee : Weapon
 {
-    private MeleeData Data => base.Data as MeleeData;
+    private MeleeData _data => Data as MeleeData;
+
+    [Header("# Melee's Handler")]
+    [SerializeField] IShotHandler _shotHandler;
+    [HideInInspector] public AudioHandler AudioHandler;
+
+
+    protected override void Init()
+    {
+        _shotHandler = GetComponent<IShotHandler>();
+        AudioHandler = GetComponent<AudioHandler>();
+    }
+
     public virtual void Shot()
     {
-        /*
-        if (CanShot)
+        if (!CanShot)
         {
             Debug.LogError($"{gameObject.name}의 canShot: false");
+            return;
         }
 
-        // Crosshair를 바라보게 방향 전환
-        Vector3 lookDir = _playerInteract.InteractRay.direction;
-        lookDir.y = 0f;
-        lookDir = Quaternion.AngleAxis(30f, Vector3.up) * lookDir; // 30도 오른쪽으로 회전
-        _character.forward = lookDir;
-
-        // 공격 애니메이션 동작
-        */
+        _shotHandler.Shot();
     }
 
     public override void GetAmmo() // 근접 무기는 총알 보급이 필요없음
@@ -30,7 +35,7 @@ public class Melee : Weapon
 
     public override string GetAmmoStatus()
     {
-        throw new System.NotImplementedException();
+        return "1";
     }
 
     protected override void ConnectDelegate()
@@ -43,5 +48,15 @@ public class Melee : Weapon
     {
         if (PlayerController == null) return;
         PlayerController.OnShotAction -= Shot;
+    }
+    
+    void OnTriggerEnter(Collider other)
+    {
+        GameObject hitObj = other.gameObject;
+
+        if (hitObj.CompareTag("Enemy"))
+        {
+            hitObj.GetComponent<Enemy>().EnemyHealth.TakeDamage(_data.Damage);
+        }
     }
 }

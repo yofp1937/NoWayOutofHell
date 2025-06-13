@@ -30,29 +30,51 @@ public class ShotHandler : MonoBehaviour, IShotHandler
 
         // 탄약 소비, UI 업데이트
         _gun.AmmoData.LoadedAmmo -= 1;
-        _gun.PlayerUI.UpdateAmmoText(_gun.GetAmmoStatus());
+        _gun.PlayerUI.UpdateAmmoAction?.Invoke(_gun.GetAmmoStatus());
+        
+        if (_gun.AmmoData.MaxLoadedAmmo == 60) // 무기가 Scar일 경우
+        {
+            StartCoroutine(DelayedShootBullet(0.083f));
+        }
 
         // 쿨타임 적용
         StartCoroutine(ShotCoolDown());
     }
 
-    private void ShootBullet()
+    void ShootBullet()
     {
         // 1.총알 생성
         GameObject bullet = PoolManager.Instance.Get(_gun.Bullet);
         bullet.transform.position = _gun.Muzzle.position;
-        bullet.transform.forward = _gun.Muzzle.forward;
         bullet.transform.parent = PoolManager.Instance.transform;
 
         // 2.방향 계산 및 힘주기(Bullet 컴포넌트에서 실행)
-        Vector3 shootDir = _gun.PlayerInteract.InteractRay.direction.normalized;
+        Vector3 targetPos = _gun.PlayerLook.GetCenterObjPosition(_gun.Muzzle.position);
+        Vector3 shootDir = (targetPos - _gun.Muzzle.position).normalized;
+
         // Damage도 전달해야함
         bullet.GetComponent<Bullet>().FireToTarget(_gun.Data.Damage, _gun.AmmoData.AmmoSpeed, shootDir);
+        _gun.AudioHandler.PlayShotAudio();
     }
 
-    private IEnumerator ShotCoolDown()
+    IEnumerator ShotCoolDown()
     {
         yield return new WaitForSeconds(_gun.Data.FireRate);
         _gun.CanShot = true;
+    }
+
+    IEnumerator DelayedShootBullet(float delay) // Scar 전용
+    {
+        yield return new WaitForSeconds(delay);
+
+        ShootBullet();
+
+        // Recoil 적용
+        GunData gunData = _gun.Data as GunData;
+        _gun.PlayerLook.Recoil(gunData.RecoilKickBack, gunData.RecoilAmount);
+
+        // 탄약 소비, UI 업데이트
+        _gun.AmmoData.LoadedAmmo -= 1;
+        _gun.PlayerUI.UpdateAmmoAction?.Invoke(_gun.GetAmmoStatus());
     }
 }

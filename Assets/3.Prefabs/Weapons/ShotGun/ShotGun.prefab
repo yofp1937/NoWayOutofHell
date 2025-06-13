@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 636189448443273327}
   - component: {fileID: 3258728664399646751}
   - component: {fileID: 5026499829410922057}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_E_Trigger
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8809351143804566140}
   - component: {fileID: 1550225620657777128}
   - component: {fileID: 3704677741671772525}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_E_Receiver
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 1982775587518466647}
   - component: {fileID: 6955510173295825838}
   - component: {fileID: 7081575371321723821}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_E_Barrel
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 2665717540530946163}
   - component: {fileID: 5479561459358072573}
   - component: {fileID: 3305473590967301906}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_E_BarrelGuard
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -342,7 +342,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1097456941904169572}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: Muzzle
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 6969831701918497907}
   - component: {fileID: 5247702197783061447}
   - component: {fileID: 1877231977645188587}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_E_Rail
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 8236698245544548987}
   - component: {fileID: 1933036083632440112}
   - component: {fileID: 737137236397308178}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_E_Bolt
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -545,7 +545,8 @@ GameObject:
   - component: {fileID: 8736991935185916064}
   - component: {fileID: 4715247746385399909}
   - component: {fileID: 7936001312217474950}
-  m_Layer: 6
+  - component: {fileID: 6090921617841447568}
+  m_Layer: 15
   m_Name: ShotGun
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -656,6 +657,7 @@ MonoBehaviour:
   IsReloading: 0
   Bullet: {fileID: 3489922258393200078, guid: 4d409630e9aa0d74cb9e7359305b15c6, type: 3}
   Muzzle: {fileID: 1097456941904169572}
+  AudioHandler: {fileID: 0}
 --- !u!114 &8736991935185916064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -693,3 +695,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spreadAngle: 7.5
+--- !u!114 &6090921617841447568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9209568620739521198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b0800d122c9ff4abfc38dd8cac9573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

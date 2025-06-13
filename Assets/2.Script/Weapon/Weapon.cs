@@ -6,13 +6,15 @@ public abstract class Weapon : Interactable
 {
     [Header("# Weapon's Main Data")]
     public WeaponData Data;
+    public bool CanShot;
 
     [Header("# Weapon's Self Component References Data")]
-    protected Collider _col;
+    [HideInInspector] public Collider Collider;
     protected Rigidbody _rigid;
 
     [Header("# Weapon's External References Data")]
     [HideInInspector] public GameObject Player;
+    [HideInInspector] public Transform ObjectArm;
     [HideInInspector] public Transform Character;
     [HideInInspector] public PlayerController PlayerController;
     [HideInInspector] public PlayerItem PlayerItem;
@@ -22,7 +24,7 @@ public abstract class Weapon : Interactable
 
     void Awake()
     {
-        _col = GetComponent<Collider>();
+        Collider = GetComponent<Collider>();
         _rigid = GetComponent<Rigidbody>();
         Init();
     }
@@ -38,7 +40,8 @@ public abstract class Weapon : Interactable
         {
             Player = controller.gameObject;
             BindPlayerComponents();
-            PlayerUI.UpdateAmmoText(GetAmmoStatus());
+            PlayerUI.UpdateAmmoAction?.Invoke(GetAmmoStatus());
+            _rigid.constraints = RigidbodyConstraints.FreezeAll;
         }
     }
 
@@ -62,6 +65,7 @@ public abstract class Weapon : Interactable
     {
         BindPlayerComponents();
         PlayerItem.GetWeapon(this);
+        _rigid.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     public virtual void UnEquip()
@@ -71,33 +75,35 @@ public abstract class Weapon : Interactable
         DisconnectDelegate();
         SetPosition();
         ResetPlayerBindings();
+        _rigid.constraints = RigidbodyConstraints.None;
     }
 
     private void BindPlayerComponents()
     {
         // Debug.Log($"{gameObject.name}.BindPlayerComponents() 실행");
         if (Player == null) return;
-        Character = Player.transform.Find("BananaMan");
+        Character = Player.GetComponentInChildren<Animator>().gameObject.transform;
         PlayerController = Player.GetComponent<PlayerController>();
-        ConnectDelegate();
         PlayerItem = Player.GetComponent<PlayerItem>();
         PlayerInteract = Player.GetComponent<PlayerInteract>();
         PlayerUI = Player.GetComponent<PlayerUI>();
         PlayerLook = Player.GetComponent<PlayerLook>();
-        _col.enabled = false;
+        gameObject.layer = LayerMask.NameToLayer("Player");
+        ConnectDelegate();
         _rigid.useGravity = false;
     }
 
     private void ResetPlayerBindings()
     {
         Player = null;
+        ObjectArm = null;
         Character = null;
         PlayerController = null;
         PlayerItem = null;
         PlayerInteract = null;
         PlayerUI = null;
         PlayerLook = null;
-        _col.enabled = true;
+        gameObject.layer = LayerMask.NameToLayer("Interactable");
         _rigid.useGravity = true;
     }
 
@@ -121,22 +127,6 @@ public abstract class Weapon : Interactable
         transform.position = PlayerItem.MainT.position;
         transform.rotation = Quaternion.identity;
     }
-
-    // TODO
-    // 1.총알 획득
-    // 3.총기 반동
-    // 4.탄퍼짐
-    // 5.정조준
-
-    /// <summary>
-    /// 총알 보급시 잔탄 가득 채워주는 함수
-    // /// </summary>
-    // public void GetBullet()
-    // {
-    //     if (0 > Data.MaxAmmo) return; // 총알이 무한인경우 return
-    //     Data.RemainAmmo = Data.MaxAmmo - Data.LoadedAmmo;
-    //     Debug.Log($"{gameObject.name} 총알 획득");
-    // }
 
     public abstract void GetAmmo();
     public abstract string GetAmmoStatus();

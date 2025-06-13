@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 6532546076733440565}
   - component: {fileID: -4998272037373346577}
   - component: {fileID: 5144308875938288731}
-  m_Layer: 6
+  - component: {fileID: 7506452912184992308}
+  m_Layer: 15
   m_Name: Crowbar
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -153,6 +154,27 @@ MonoBehaviour:
   promptMessage: Get CrowBar
   Data: {fileID: 11400000, guid: 812335b9e2c5e6a4089597d45b144cb6, type: 2}
   CanShot: 1
+  Collider: {fileID: 0}
+  Player: {fileID: 0}
+  Character: {fileID: 0}
+  PlayerController: {fileID: 0}
+  PlayerItem: {fileID: 0}
+  PlayerInteract: {fileID: 0}
+  PlayerUI: {fileID: 0}
+  PlayerLook: {fileID: 0}
+  AudioHandler: {fileID: 0}
+--- !u!114 &7506452912184992308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057417602705960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c5ac58f169aa44fa059f58559c4adb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1514185034712026
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +186,7 @@ GameObject:
   - component: {fileID: 4842049829891028}
   - component: {fileID: 33556157468154284}
   - component: {fileID: 23440132647798518}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: Crowbar_Cloth
   m_TagString: Weapon
   m_Icon: {fileID: 0}

@@ -27,10 +27,11 @@ public class StateMachine : MonoBehaviour
         }
         ActiveState = newState;
 
-        if(ActiveState != null)
+        if (ActiveState != null)
         {
             ActiveState.StateMachine = this;
             ActiveState.Enemy = GetComponent<Enemy>();
+            ActiveState.Enemy.UpdateCurrentState(ActiveState.ToString());
             ActiveState.Enter();
         }
     }

@@ -32,7 +32,7 @@ public class ShotGunShotHandler : MonoBehaviour, IShotHandler
 
         // 탄약 소비, UI 업데이트
         _gun.AmmoData.LoadedAmmo -= 1;
-        _gun.PlayerUI.UpdateAmmoText(_gun.GetAmmoStatus());
+        _gun.PlayerUI.UpdateAmmoAction?.Invoke(_gun.GetAmmoStatus());
 
         // 쿨타임 적용
         StartCoroutine(ShotCoolDown());
@@ -48,12 +48,12 @@ public class ShotGunShotHandler : MonoBehaviour, IShotHandler
         {
             GameObject bullet = PoolManager.Instance.Get(_gun.Bullet);
             bullet.transform.position = _gun.Muzzle.position;
-            bullet.transform.forward = _gun.Muzzle.forward;
             bullet.transform.parent = PoolManager.Instance.transform;
 
             bullet.transform.rotation = Quaternion.LookRotation(directions[i]);
             bullet.GetComponent<Bullet>().FireToTarget(_gun.Data.Damage, _gun.AmmoData.AmmoSpeed, directions[i]);
         }
+        _gun.AudioHandler.PlayShotAudio();
     }
 
     private IEnumerator ShotCoolDown()

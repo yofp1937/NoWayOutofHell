@@ -45,20 +45,36 @@ public class PlayerMovement : MonoBehaviour
         camRight.Normalize();
 
         Vector3 moveDir = camForward * input.y + camRight * input.x;
-        _controller.Move(moveDir * _moveSpeed * Time.deltaTime);
+        moveDir.Normalize();
 
-        // characet 객체도 회전
-        if(moveDir.magnitude >= 0.1f)
+        // 뒤쪽 이동이면 속도 33%로 조정
+        float forwardAmount = Vector3.Dot(moveDir, camForward);
+        float speedMultiplier = (forwardAmount < -0.1f) ? 0.5f : 1f;
+
+        _controller.Move(moveDir * _moveSpeed * speedMultiplier * Time.deltaTime);
+
+        // characet 객체도 회전 - 플레이어가 방향키 입력방향을 쳐다봄
+        // if (moveDir.magnitude >= 0.1f)
+        // {
+        //     Quaternion playerRotation = Quaternion.LookRotation(moveDir);
+        //     Vector3 euler = playerRotation.eulerAngles;
+        //     _character.rotation = Quaternion.Slerp(_character.rotation, Quaternion.Euler(0, euler.y + 30f, 0), Time.deltaTime * 10f);
+        // }
+
+        // 플레이어가 언제나 정면을 쳐다봄
+        Vector3 lookDir = _camArm.forward;
+        lookDir.y = 0f;
+        if (lookDir.sqrMagnitude > 0.001f)
         {
-            Quaternion playerRotation = Quaternion.LookRotation(moveDir);
-            Vector3 euler = playerRotation.eulerAngles;
-            _character.rotation = Quaternion.Slerp(_character.rotation, Quaternion.Euler(0, euler.y + 30f, 0), Time.deltaTime * 10f);
-            _animCon.SetMove(true);
+            // 우측으로 45도 회전 추가
+            Quaternion targetRotation = Quaternion.LookRotation(lookDir);
+            targetRotation *= Quaternion.Euler(0f, 45f, 0f);
+
+            _character.rotation = Quaternion.Slerp(_character.rotation, targetRotation, Time.deltaTime * 10f);
         }
-        else
-        {
-            _animCon.SetMove(false);
-        }
+
+        Vector3 localMove = _character.InverseTransformDirection(moveDir.normalized);
+        _animCon.SetMoveDirection(localMove);
 
         // 점프로 y축 이동
         _playerVelocity.y += _gravity * Time.deltaTime;

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8331509556208980800}
   - component: {fileID: 8343140595701094206}
   - component: {fileID: 7706483887433625613}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_B_Receiver
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7402575098424964786}
   - component: {fileID: 2207072162616664959}
   - component: {fileID: 3683306508750651097}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_B_Stock
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 2950332828383525374}
   - component: {fileID: 1893670867651459969}
   - component: {fileID: 611929409661990645}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_B_Bolt
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 6044106984336508200}
   - component: {fileID: 461031626710174573}
   - component: {fileID: 7583216897788435045}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_B_Rail
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -346,7 +346,8 @@ GameObject:
   - component: {fileID: -1801440005517560844}
   - component: {fileID: -9198193066004945937}
   - component: {fileID: -3540248562399570340}
-  m_Layer: 6
+  - component: {fileID: -6487775376570464257}
+  m_Layer: 15
   m_Name: AK47
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -449,16 +450,19 @@ MonoBehaviour:
   PlayerItem: {fileID: 0}
   PlayerInteract: {fileID: 0}
   PlayerUI: {fileID: 0}
+  PlayerLook: {fileID: 0}
   AmmoData:
     MaxAmmo: 0
     MaxLoadedAmmo: 0
     LoadedAmmo: 0
     RemainAmmo: 0
     ReloadTime: 0
+    AmmoSpeed: 0
   CanShot: 1
   IsReloading: 0
   Bullet: {fileID: 8489818951931819000, guid: 76d6965a82c700547ac9c860a6e92ca9, type: 3}
   Muzzle: {fileID: 7684857007777030730}
+  AudioHandler: {fileID: 0}
 --- !u!114 &-9198193066004945937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,6 +487,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217d62f0f45f2754c815eb14cd18aced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6487775376570464257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2558141238811818592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b0800d122c9ff4abfc38dd8cac9573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2651670557470964910
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +510,7 @@ GameObject:
   - component: {fileID: 6747906716947528747}
   - component: {fileID: 3841656728912890475}
   - component: {fileID: 6305741427357233449}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_B_Barrel
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -577,7 +593,7 @@ GameObject:
   - component: {fileID: 6124413846938024624}
   - component: {fileID: 6228976442345482143}
   - component: {fileID: 7940040734337784883}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_B_Mag
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -658,7 +674,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7684857007777030730}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: Muzzle
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -691,7 +707,7 @@ GameObject:
   - component: {fileID: 5723921521078052652}
   - component: {fileID: 6173076887165839318}
   - component: {fileID: 7410485544265817284}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_B_Grip
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -774,7 +790,7 @@ GameObject:
   - component: {fileID: 6935891892124060706}
   - component: {fileID: 3112477629860692364}
   - component: {fileID: 2648913930222158661}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_B_Trigger
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -857,7 +873,7 @@ GameObject:
   - component: {fileID: 6450390871749498222}
   - component: {fileID: 3737257088384226950}
   - component: {fileID: 7923046870729840536}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: AR_B_BarrelGuard
   m_TagString: Weapon
   m_Icon: {fileID: 0}

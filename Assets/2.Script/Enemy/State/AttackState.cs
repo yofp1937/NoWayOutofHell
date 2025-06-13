@@ -28,15 +28,19 @@ public class AttackState : BaseState
                 Enemy.transform.rotation = targetRotation;
             }
 
-            if(Enemy.IsInAttackRange())
+            if (Enemy.EnemyAttack.IsInAttackRange())
             {
+                if (Enemy.EnemyAttack.PlayerHealth == null) return;
+                
                 Enemy.Agent.isStopped = true;
-                Enemy.Anim.SetFloat("MoveSpeed", 0f);
+                Enemy.EnemyAnimCon.SetFloat("MoveSpeed", 0f);
+                Enemy.EnemyAnimCon.SetBool("CanAttack", true);
             }
             else
             {
                 Enemy.Agent.isStopped = false;
-                Enemy.Anim.SetFloat("MoveSpeed", Enemy.MoveSpeed);
+                Enemy.EnemyAnimCon.SetFloat("MoveSpeed", Enemy.MoveSpeed);
+                Enemy.EnemyAnimCon.SetBool("CanAttack", false);
             }
             Enemy.Agent.SetDestination(playerPos);
         }

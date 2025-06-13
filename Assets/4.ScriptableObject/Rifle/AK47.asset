@@ -23,3 +23,5 @@ MonoBehaviour:
   AmmoSpeed: 150
   RecoilKickBack: {x: 0.05, y: 0.1, z: 0}
   RecoilAmount: 0.1
+  ShotAudio: {fileID: 8300000, guid: b3a1b0f854d515b4798e653179fdaea9, type: 3}
+  ReloadAudio: {fileID: 8300000, guid: 8aba37af064a2b149be7bd57e6d8fe65, type: 3}

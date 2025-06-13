@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3892103834705860653}
   - component: {fileID: 3421862022894441175}
   - component: {fileID: 886250800468521009}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_C_BarrelGuard
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7726640603588603619}
   - component: {fileID: 5610337809814076293}
   - component: {fileID: 4232487450012596292}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_C_Bolt
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 1455421266144894029}
   - component: {fileID: 8326691139692273000}
   - component: {fileID: 358596651449490777}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_C_Sight_Back
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2619491556088077814}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: Muzzle
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 3271002687758103185}
   - component: {fileID: 3332927348158454575}
   - component: {fileID: 5847569077301261498}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_C_Grip
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 2735835991189821717}
   - component: {fileID: 1016295906613350937}
   - component: {fileID: 8070722396397511014}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_C_Stock_Part
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -461,7 +461,8 @@ GameObject:
   - component: {fileID: -5534820463432430481}
   - component: {fileID: -1697321559205291087}
   - component: {fileID: -7514091702775895984}
-  m_Layer: 6
+  - component: {fileID: 6282563890564345818}
+  m_Layer: 15
   m_Name: ShotGunAuto
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -577,6 +578,7 @@ MonoBehaviour:
   IsReloading: 0
   Bullet: {fileID: 4948304750745466347, guid: 0b06c9f960b5da64cbe7baf57569248b, type: 3}
   Muzzle: {fileID: 2619491556088077814}
+  AudioHandler: {fileID: 0}
 --- !u!114 &-5534820463432430481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,6 +616,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spreadAngle: 7.5
+--- !u!114 &6282563890564345818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2932640980190783236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b0800d122c9ff4abfc38dd8cac9573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3691993328751055396
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,7 +639,7 @@ GameObject:
   - component: {fileID: 2461922847253017265}
   - component: {fileID: 9102857183451820412}
   - component: {fileID: 3014117811243645935}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_C_Trigger
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -708,7 +722,7 @@ GameObject:
   - component: {fileID: 8901286320977168951}
   - component: {fileID: 4519325952773459441}
   - component: {fileID: 3163879153544430775}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_C_Mag
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -791,7 +805,7 @@ GameObject:
   - component: {fileID: 8608477406611746195}
   - component: {fileID: 4477045197507606128}
   - component: {fileID: 2914520148997411481}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_C_Sight_Forward
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -874,7 +888,7 @@ GameObject:
   - component: {fileID: 6395125987733184735}
   - component: {fileID: 2658618048503451070}
   - component: {fileID: 8576323223152685795}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_C_Receiver
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -957,7 +971,7 @@ GameObject:
   - component: {fileID: 8222511354573691998}
   - component: {fileID: 8781581015936702740}
   - component: {fileID: 6742522639716579604}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_C_Stock
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -1041,7 +1055,7 @@ GameObject:
   - component: {fileID: 7110380695182338613}
   - component: {fileID: 4434331797214900550}
   - component: {fileID: 2129674541251720010}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_C_Barrel
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -1125,7 +1139,7 @@ GameObject:
   - component: {fileID: 1335405831079171615}
   - component: {fileID: 2762836812614648575}
   - component: {fileID: 4523127036187727460}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: ShotGun_C_Rail
   m_TagString: Weapon
   m_Icon: {fileID: 0}

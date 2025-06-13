@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-    [SerializeField] Animator _anim;
+    public Animator Anim;
 
     /// <summary>
     /// 무기 획득시 호출하여 Player의 애니메이션 레이어 변경
@@ -13,10 +13,10 @@ public class PlayerAnimationController : MonoBehaviour
     {
         string targetLayer = GetLayerNameByWeaponEnum(weaponEnum);
 
-        for (int index = 0; index < _anim.layerCount; index++)
+        for (int index = 0; index < Anim.layerCount; index++)
         {
-            string layerName = _anim.GetLayerName(index);
-            _anim.SetLayerWeight(index, layerName == targetLayer ? 1f : 0f);
+            string layerName = Anim.GetLayerName(index);
+            Anim.SetLayerWeight(index, layerName == targetLayer ? 1f : 0f);
         }
     }
 
@@ -44,5 +44,12 @@ public class PlayerAnimationController : MonoBehaviour
         }
     }
 
-    public void SetMove(bool move) { _anim.SetBool("Move", move); }
+    public void SetMoveDirection(Vector3 localDir)
+    {
+        Anim.SetFloat("MoveX", localDir.x);
+        Anim.SetFloat("MoveY", localDir.z);
+
+        bool isMoving = localDir.sqrMagnitude > 0.01f;
+        Anim.SetBool("IsMoving", isMoving);
+    }
 }

@@ -31,13 +31,13 @@ public class PatrolState : BaseState
     {
         if(Enemy.Agent.remainingDistance < 0.2f) // 목표 거리에 가까워져있으면
         {
-            Enemy.Anim.SetFloat("MoveSpeed", 0f);
+            Enemy.EnemyAnimCon.SetFloat("MoveSpeed", 0f);
             _waitTimer += Time.deltaTime;
             if(_waitTimer >= _randomTime)
             {
                 if(Random.Range(0,100f) >= 10f) // 20% 확률로 이동 
                 {
-                    Enemy.Anim.SetFloat("MoveSpeed", Enemy.Agent.speed);
+                    Enemy.EnemyAnimCon.SetFloat("MoveSpeed", Enemy.Agent.speed);
                     Enemy.Agent.SetDestination(Enemy.transform.position + (Vector3)(Random.insideUnitCircle * _patrolRadius));
                 }
                 ResetTimer();

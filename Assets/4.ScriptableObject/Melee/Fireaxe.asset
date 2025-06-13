@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Fireaxe
   m_EditorClassIdentifier: 
   WeaponType: 3
-  Damage: 80
-  FireRate: 0.5
+  Damage: 120
+  FireRate: 1.1

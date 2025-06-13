@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +13,11 @@ public class PlayerController : MonoBehaviour
     [Header("# Reference Data")]
     PlayerMovement _movement;
     PlayerLook _look;
-    PlayerAnimationController _animCon;
     PlayerItem _playerItem;
 
-    // Delegate
-    public delegate void OnShotDelegate();
-    public OnShotDelegate OnShotAction;
-    public delegate void OnReloadDelegate();
-    public OnReloadDelegate OnReloadAction;
+    // Action
+    public Action OnShotAction;
+    public Action OnReloadAction;
 
     void Awake()
     {
@@ -28,12 +26,12 @@ public class PlayerController : MonoBehaviour
 
         _movement = GetComponent<PlayerMovement>();
         _look = GetComponent<PlayerLook>();
-        _animCon = GetComponent<PlayerAnimationController>();
         _playerItem = GetComponent<PlayerItem>();
 
         Player.Jump.performed += e => _movement.Jump();
         Player.ChangeWeapon.performed += OnChangeWeapon;
         Player.Reload.performed += e => OnReloadAction?.Invoke();
+        Player.Aiming.performed += e => _look.Aiming();
 
         LockCursor(true); // 시작 시 마우스 고정
     }

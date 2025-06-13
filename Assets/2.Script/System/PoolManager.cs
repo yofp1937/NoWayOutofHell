@@ -7,6 +7,7 @@ public class PoolManager : Singleton<PoolManager>
     [Header("# Main Data")]
     public GameObject DebugObj;
     public Transform DebugT;
+    public GameObject Zombie;
     private Dictionary<string, List<GameObject>> m_poolDict = new Dictionary<string, List<GameObject>>();
 
     public GameObject Get(GameObject prefab)
@@ -40,6 +41,7 @@ public class PoolManager : Singleton<PoolManager>
             // Debug.Log($"[PoolManager]: obj 생성 후 반환");
         }
 
+        obj.transform.parent = transform;
         obj.transform.position = transform.position;
         obj.SetActive(true);
         return obj;

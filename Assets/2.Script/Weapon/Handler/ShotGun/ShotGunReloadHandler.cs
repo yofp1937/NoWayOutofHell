@@ -54,10 +54,11 @@ public class ShotGunReloadHandler : MonoBehaviour, IReloadHandler
             }
             yield return new WaitForSeconds(_gun.AmmoData.ReloadTime);
 
+            _gun.AudioHandler.PlayReloadAudio();
             _gun.AmmoData.LoadedAmmo += 1;
             _gun.AmmoData.RemainAmmo -= 1;
 
-            _gun.PlayerUI.UpdateAmmoText(_gun.GetAmmoStatus());
+            _gun.PlayerUI.UpdateAmmoAction?.Invoke(_gun.GetAmmoStatus());
         }
 
         _gun.CanShot = true;

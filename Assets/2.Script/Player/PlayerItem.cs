@@ -91,7 +91,8 @@ public class PlayerItem : MonoBehaviour
                 break;
         }
         _playerAnimController.ChangeAnimationLayer(target.Data.WeaponType);
-        _playerUI.UpdateAmmoText(target.GetAmmoStatus());
+        _playerUI.UpdateAmmoAction?.Invoke(target.GetAmmoStatus());
+        target.CanShot = true;
         DeactivateOtherWeapons(targetTransform);
     }
 
@@ -130,7 +131,7 @@ public class PlayerItem : MonoBehaviour
 
         if (MainT.gameObject.activeSelf)
         {
-            _playerUI.UpdateAmmoText(MainWeapon.GetAmmoStatus());
+            _playerUI.UpdateAmmoAction.Invoke(MainWeapon.GetAmmoStatus());
         }
     }
 }

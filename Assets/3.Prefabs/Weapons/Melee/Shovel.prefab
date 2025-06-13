@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 6285710883923469330}
   - component: {fileID: 90131055757186154}
   - component: {fileID: -325187539200390119}
-  m_Layer: 6
+  - component: {fileID: -2617145840009259537}
+  m_Layer: 15
   m_Name: Shovel
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -155,6 +156,27 @@ MonoBehaviour:
   promptMessage: Get Shovel
   Data: {fileID: 11400000, guid: 10916ef90792acd4cba2fd7540a5cf67, type: 2}
   CanShot: 1
+  Collider: {fileID: 0}
+  Player: {fileID: 0}
+  Character: {fileID: 0}
+  PlayerController: {fileID: 0}
+  PlayerItem: {fileID: 0}
+  PlayerInteract: {fileID: 0}
+  PlayerUI: {fileID: 0}
+  PlayerLook: {fileID: 0}
+  AudioHandler: {fileID: 0}
+--- !u!114 &-2617145840009259537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116070051026404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c5ac58f169aa44fa059f58559c4adb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1197270243415778
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +188,7 @@ GameObject:
   - component: {fileID: 4038247752882616}
   - component: {fileID: 33676947064373944}
   - component: {fileID: 23589258651868200}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: Handle02
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -249,7 +271,7 @@ GameObject:
   - component: {fileID: 4625580734812016}
   - component: {fileID: 33087547061089870}
   - component: {fileID: 23192138948153654}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: Handle01
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -332,7 +354,7 @@ GameObject:
   - component: {fileID: 4813343541523052}
   - component: {fileID: 33490902026378472}
   - component: {fileID: 23997417571313836}
-  m_Layer: 6
+  m_Layer: 15
   m_Name: Shovel_Cloth
   m_TagString: Weapon
   m_Icon: {fileID: 0}
