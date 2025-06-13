@@ -11,18 +11,16 @@ public class PlayerInteract : MonoBehaviour
 
     [Header("# External Reference Data")]
     [SerializeField] Camera _camera;
-    PlayerUI _playerUI;
-    PlayerController _playerController;
+    Player _player;
 
     void Awake()
     {
-        _playerUI = GetComponent<PlayerUI>();
-        _playerController = GetComponent<PlayerController>();
+        _player = GetComponent<Player>();
     }
 
     void Update()
     {
-        _playerUI.UpdateInteractText(string.Empty);
+        _player.PlayerUI.UpdateInteractText(string.Empty);
 
         // 전방으로 Raycast 보내서 상호작용 가능한 객체 감지
         InteractRay = _camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
@@ -33,8 +31,8 @@ public class PlayerInteract : MonoBehaviour
             if (hitInfo.collider.GetComponent<Interactable>() != null)
             {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                _playerUI.UpdateInteractText(interactable.OnLook());
-                if (_playerController.Player.Interact.triggered)
+                _player.PlayerUI.UpdateInteractText(interactable.OnLook());
+                if (_player.PlayerCon.Player.Interact.triggered)
                 {
                     interactable.BaseInteract(gameObject);
                 }

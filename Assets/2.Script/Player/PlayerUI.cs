@@ -7,7 +7,6 @@ using System;
 public class PlayerUI : MonoBehaviour
 {
     [Header("# Player UI Data")]
-    [SerializeField] GameObject Crosshair;
     [SerializeField] TextMeshProUGUI _interactText;
     [SerializeField] TextMeshProUGUI _ammoText;
 

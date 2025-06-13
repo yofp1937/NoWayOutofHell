@@ -17,13 +17,11 @@ public class PlayerItem : MonoBehaviour
     public Transform HealT;
 
     [Header("# Reference Data")]
-    PlayerAnimationController _playerAnimController;
-    PlayerUI _playerUI;
+    Player _player;
 
     void Awake()
     {
-        _playerAnimController = GetComponent<PlayerAnimationController>();
-        _playerUI = GetComponent<PlayerUI>();
+        _player = GetComponent<Player>();
 
         MainT.gameObject.SetActive(false);
     }
@@ -90,8 +88,8 @@ public class PlayerItem : MonoBehaviour
                 targetTransform = HealT;
                 break;
         }
-        _playerAnimController.ChangeAnimationLayer(target.Data.WeaponType);
-        _playerUI.UpdateAmmoAction?.Invoke(target.GetAmmoStatus());
+        _player.PlayerAnimCon.ChangeAnimationLayer(target.Data.WeaponType);
+        _player.PlayerUI.UpdateAmmoAction?.Invoke(target.GetAmmoStatus());
         target.CanShot = true;
         DeactivateOtherWeapons(targetTransform);
     }
@@ -131,7 +129,7 @@ public class PlayerItem : MonoBehaviour
 
         if (MainT.gameObject.activeSelf)
         {
-            _playerUI.UpdateAmmoAction.Invoke(MainWeapon.GetAmmoStatus());
+            _player.PlayerUI.UpdateAmmoAction.Invoke(MainWeapon.GetAmmoStatus());
         }
     }
 }

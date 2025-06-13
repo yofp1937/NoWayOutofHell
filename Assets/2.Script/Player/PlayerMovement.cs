@@ -15,21 +15,20 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("# Reference Data")]
     [SerializeField] Transform _camArm;
-    [SerializeField] Transform _character;
     CharacterController _controller;
-    PlayerAnimationController _animCon;
+    Player _player;
 
     void Awake()
     {
         _controller = GetComponent<CharacterController>();
-        _animCon = GetComponent<PlayerAnimationController>();
+        _player = GetComponent<Player>();
     }
 
     void Update()
     {
         _isGrounded = _controller.isGrounded;
         // 좌,우 방향키를 반복적으로 누르면 Chracter가 화면에서 점점 밀려나서 Player와 Character의 position을 일치시킴
-        _character.position = gameObject.transform.position;
+        _player.Character.transform.position = gameObject.transform.position;
     }
 
     public void ProcessMove(Vector2 input)
@@ -70,11 +69,11 @@ public class PlayerMovement : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(lookDir);
             targetRotation *= Quaternion.Euler(0f, 45f, 0f);
 
-            _character.rotation = Quaternion.Slerp(_character.rotation, targetRotation, Time.deltaTime * 10f);
+            _player.Character.transform.rotation = Quaternion.Slerp(_player.Character.transform.rotation, targetRotation, Time.deltaTime * 10f);
         }
 
-        Vector3 localMove = _character.InverseTransformDirection(moveDir.normalized);
-        _animCon.SetMoveDirection(localMove);
+        Vector3 localMove = _player.Character.transform.InverseTransformDirection(moveDir.normalized);
+        _player.PlayerAnimCon.SetMoveDirection(localMove);
 
         // 점프로 y축 이동
         _playerVelocity.y += _gravity * Time.deltaTime;

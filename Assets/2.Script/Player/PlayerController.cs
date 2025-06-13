@@ -11,9 +11,7 @@ public class PlayerController : MonoBehaviour
     public bool IsHoldingShotKey;
 
     [Header("# Reference Data")]
-    PlayerMovement _movement;
-    PlayerLook _look;
-    PlayerItem _playerItem;
+    Player _player;
 
     // Action
     public Action OnShotAction;
@@ -23,15 +21,12 @@ public class PlayerController : MonoBehaviour
     {
         _playerInput = new PlayerInput();
         Player = _playerInput.Player;
+        _player = GetComponent<Player>();
 
-        _movement = GetComponent<PlayerMovement>();
-        _look = GetComponent<PlayerLook>();
-        _playerItem = GetComponent<PlayerItem>();
-
-        Player.Jump.performed += e => _movement.Jump();
+        Player.Jump.performed += e => _player.PlayerMovement.Jump();
         Player.ChangeWeapon.performed += OnChangeWeapon;
         Player.Reload.performed += e => OnReloadAction?.Invoke();
-        Player.Aiming.performed += e => _look.Aiming();
+        Player.Aiming.performed += e => _player.PlayerLook.Aiming();
 
         LockCursor(true); // 시작 시 마우스 고정
     }
@@ -48,12 +43,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        _movement.ProcessMove(Player.Movement.ReadValue<Vector2>());
+        _player.PlayerMovement.ProcessMove(Player.Movement.ReadValue<Vector2>());
     }
 
     void LateUpdate()
     {
-        _look.ProcessLook(Player.Look.ReadValue<Vector2>());
+        _player.PlayerLook.ProcessLook(Player.Look.ReadValue<Vector2>());
     }
 
     void OnEnable()
@@ -75,6 +70,6 @@ public class PlayerController : MonoBehaviour
     void OnChangeWeapon(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         int inputValue = int.Parse(context.control.name); // 키보드 1,2,3,4 입력 받아오기
-        _playerItem.ChangeWeapon(inputValue); // PlayerItem의 ChangeWeapon 호출
+        _player.PlayerItem.ChangeWeapon(inputValue); // PlayerItem의 ChangeWeapon 호출
     }
 }
