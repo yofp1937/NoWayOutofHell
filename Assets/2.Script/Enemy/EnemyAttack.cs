@@ -11,8 +11,8 @@ public class EnemyAttack : MonoBehaviour
     Enemy _enemy;
 
     [Header("# External Reference Data")]
-    [SerializeField] PlayerHealth _playerHealth;
-    public PlayerHealth PlayerHealth { get => _playerHealth; }
+    [SerializeField] Hp _playerHp;
+    public Hp PlayerHp { get => _playerHp; }
 
     void Awake()
     {
@@ -31,17 +31,17 @@ public class EnemyAttack : MonoBehaviour
         {
             if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
-                _playerHealth = hitInfo.transform.gameObject.GetComponent<PlayerHealth>();
+                _playerHp = hitInfo.transform.gameObject.GetComponent<Hp>();
             }
             return true;
         }
-        _playerHealth = null;
+        _playerHp = null;
         return false;
     }
 
     public void TakeDamage()
     {
-        if (PlayerHealth == null) return;
-        _playerHealth.TakeDamage(_enemy.Damage);
+        if (PlayerHp == null) return;
+        _playerHp.TakeDamage(_enemy.Damage);
     }
 }

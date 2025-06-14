@@ -9,6 +9,7 @@ public class Melee : Weapon
     [Header("# Melee's Handler")]
     [SerializeField] IShotHandler _shotHandler;
     [HideInInspector] public AudioHandler AudioHandler;
+    HashSet<GameObject> _hitEnemies = new HashSet<GameObject>();
 
 
     protected override void Init()
@@ -21,7 +22,7 @@ public class Melee : Weapon
     {
         if (!CanShot)
         {
-            Debug.LogError($"{gameObject.name}의 canShot: false");
+            // Debug.LogError($"{gameObject.name}의 canShot: false");
             return;
         }
 
@@ -49,14 +50,27 @@ public class Melee : Weapon
         if (PlayerController == null) return;
         PlayerController.OnShotAction -= Shot;
     }
-    
+
     void OnTriggerEnter(Collider other)
     {
-        GameObject hitObj = other.gameObject;
+        if (!other.CompareTag("Enemy")) return;
 
-        if (hitObj.CompareTag("Enemy"))
-        {
-            hitObj.GetComponent<Enemy>().EnemyHealth.TakeDamage(_data.Damage);
-        }
+        Enemy enemy = other.GetComponentInParent<Enemy>();
+
+        if (enemy == null || _hitEnemies.Contains(enemy.gameObject)) return;
+
+        HitBox hitBox = other.GetComponent<HitBox>();
+        float finalDamage = _data.Damage * hitBox.DamageMultiplier;
+
+        enemy.EnemyHp.TakeDamage(finalDamage);
+        _hitEnemies.Add(enemy.gameObject);
+    }
+
+    /// <summary>
+    /// _shotHandler에서 공격이 끝나면 호출
+    /// </summary>
+    public void ClearHashSet()
+    {
+        _hitEnemies.Clear();
     }
 }

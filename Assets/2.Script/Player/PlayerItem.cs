@@ -10,7 +10,7 @@ public class PlayerItem : MonoBehaviour
     public Weapon ThrowingWeapon; // 투척무기
     public Weapon HealItem; // 회복용 아이템
 
-    [Header("# Equips Transform")]
+    [Header("# Equips Transform")] // Inspector에서 배치시켜야함
     public Transform MainT;
     public Transform[] SubT; // 0은 Pistol, 1은 Melee
     public Transform ThrowingT;
@@ -23,7 +23,30 @@ public class PlayerItem : MonoBehaviour
     {
         _player = GetComponent<Player>();
 
-        MainT.gameObject.SetActive(false);
+        CheckHaveWeapons();
+    }
+
+    /// <summary>
+    /// 시작할때 보유중인 무기를 매핑시키는 역할
+    /// </summary>
+    void CheckHaveWeapons()
+    {
+        MainWeapon = SetupWeaponSlot(MainT);
+        ThrowingWeapon = SetupWeaponSlot(ThrowingT);
+        HealItem = SetupWeaponSlot(HealT);
+
+        foreach (var item in SubT)
+        {
+            SubWeapon = SetupWeaponSlot(item);
+            if (SubWeapon != null) break;
+        }
+    }
+
+    Weapon SetupWeaponSlot(Transform slot)
+    {
+        var weapon = slot.GetComponentInChildren<Weapon>();
+        slot.gameObject.SetActive(weapon != null);
+        return weapon;
     }
 
     /// <summary>

@@ -78,7 +78,7 @@ public class Bullet : MonoBehaviour
             if (hitBox != null)
             {
                 float finalDamage = damage * hitBox.DamageMultiplier;
-                hitObj.GetComponentInParent<Enemy>().EnemyHealth.TakeDamage(finalDamage);
+                hitObj.GetComponentInParent<Enemy>().EnemyHp.TakeDamage(finalDamage);
                 Debug.Log($"충돌 부위:[{hitBox.HitPart}], 데미지: [{finalDamage}]");
             }
         }

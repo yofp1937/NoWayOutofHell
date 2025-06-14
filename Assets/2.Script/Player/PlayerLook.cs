@@ -10,14 +10,23 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] float _maxVerticalAngle = 60f; // 위로 볼수있는 최대 각도
     [SerializeField] float _minVerticalAngle = 325f; // 아래로 볼수있는 최대 각도
 
-    [Header("# External Reference Data")]
-    [SerializeField] Transform _camArm;
-    [SerializeField] Camera _cam;
+    [Header("# Reference Data")]
+    Player _player;
     [SerializeField] RecoilHandler _recoilHandler;
 
     [Header("# Aiming")]
     public bool IsAiming;
     public Action<bool> OnAimChanged;
+
+    void Awake()
+    {
+        _player = GetComponent<Player>();
+    }
+
+    void Start()
+    {
+        _recoilHandler = _player.ObjectArm.GetComponentInChildren<RecoilHandler>();
+    }
 
     void Update()
     {
@@ -28,7 +37,7 @@ public class PlayerLook : MonoBehaviour
     {
         float mouseX = input.x * Sensitivity * Time.deltaTime;
         float mouseY = input.y * Sensitivity * Time.deltaTime;
-        Vector3 camAngle = _camArm.rotation.eulerAngles;
+        Vector3 camAngle = _player.ObjectArm.rotation.eulerAngles;
 
         float xRotation = camAngle.x - mouseY;
 
@@ -41,7 +50,7 @@ public class PlayerLook : MonoBehaviour
             xRotation = Mathf.Clamp(xRotation, _minVerticalAngle, 361f);
         }
 
-        _camArm.rotation = Quaternion.Euler(xRotation, camAngle.y + mouseX, camAngle.z);
+        _player.ObjectArm.rotation = Quaternion.Euler(xRotation, camAngle.y + mouseX, camAngle.z);
     }
 
     public void Recoil(Vector3 recoilKickBack, float recoilAmount)
@@ -53,13 +62,13 @@ public class PlayerLook : MonoBehaviour
     {
         IsAiming = !IsAiming;
 
-        _cam.fieldOfView = IsAiming ? 20 : 60;
+        _player.Camera.fieldOfView = IsAiming ? 20 : 60;
         OnAimChanged?.Invoke(IsAiming);
     }
 
     public Vector3 GetCenterObjPosition(Vector3 baseT)
     {
-        Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Ray ray = _player.Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
         Vector3 targetPoint;
         float maxDistance = 150f;

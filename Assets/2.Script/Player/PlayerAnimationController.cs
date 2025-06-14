@@ -4,7 +4,21 @@ using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-    public Animator Anim;
+    [Header("# Main Data")]
+    [HideInInspector] public Animator Anim;
+
+    [Header("# Reference Data")]
+    Player _player;
+
+    void Awake()
+    {
+        _player = GetComponent<Player>();
+    }
+
+    void Start()
+    {
+        Anim = _player.Character.GetComponent<Animator>();
+    }
 
     /// <summary>
     /// 무기 획득시 호출하여 Player의 애니메이션 레이어 변경

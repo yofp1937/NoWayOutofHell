@@ -30,7 +30,7 @@ public class AttackState : BaseState
 
             if (Enemy.EnemyAttack.IsInAttackRange())
             {
-                if (Enemy.EnemyAttack.PlayerHealth == null) return;
+                if (Enemy.EnemyAttack.PlayerHp == null) return;
                 
                 Enemy.Agent.isStopped = true;
                 Enemy.EnemyAnimCon.SetFloat("MoveSpeed", 0f);

@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float _jumpHeight = 1f;
 
     [Header("# Reference Data")]
-    [SerializeField] Transform _camArm;
     CharacterController _controller;
     Player _player;
 
@@ -34,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
     public void ProcessMove(Vector2 input)
     {
         // 조작키로 x축, z축 이동
-        Vector3 camForward = _camArm.forward;
-        Vector3 camRight = _camArm.right;
+        Vector3 camForward = _player.ObjectArm.forward;
+        Vector3 camRight = _player.ObjectArm.right;
 
         camForward.y = 0f;
         camRight.y = 0f;
@@ -61,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         // }
 
         // 플레이어가 언제나 정면을 쳐다봄
-        Vector3 lookDir = _camArm.forward;
+        Vector3 lookDir = _player.ObjectArm.forward;
         lookDir.y = 0f;
         if (lookDir.sqrMagnitude > 0.001f)
         {

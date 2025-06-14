@@ -6,7 +6,7 @@ public class DeadState : BaseState
 {
     public override void Enter()
     {
-        Enemy.EnemyHealth.IsAlive = false;
+        Enemy.EnemyHp.SetIsAlive(false);
         Enemy.EnemyAnimCon.SetTrigger("Dead");
     }
 

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("# Player Reference Data")]
     [HideInInspector] public PlayerController PlayerCon;
-    [HideInInspector] public PlayerHealth PlayerHealth;
+    [HideInInspector] public Hp PlayerHp;
     [HideInInspector] public PlayerInteract PlayerInteract;
     [HideInInspector] public PlayerItem PlayerItem;
     [HideInInspector] public PlayerLook PlayerLook;
@@ -14,10 +15,14 @@ public class Player : MonoBehaviour
     [HideInInspector] public PlayerUI PlayerUI;
     [HideInInspector] public GameObject Character;
 
+    [Header("# Sub Reference Data")]
+    public Transform ObjectArm;
+    public Camera Camera;
+
     void Awake()
     {
         PlayerCon = GetComponent<PlayerController>();
-        PlayerHealth = GetComponent<PlayerHealth>();
+        PlayerHp = GetComponent<Hp>();
         PlayerInteract = GetComponent<PlayerInteract>();
         PlayerItem = GetComponent<PlayerItem>();
         PlayerLook = GetComponent<PlayerLook>();
@@ -25,5 +30,19 @@ public class Player : MonoBehaviour
         PlayerAnimCon = GetComponent<PlayerAnimationController>();
         PlayerUI = GetComponent<PlayerUI>();
         Character = transform.Find("BananaMan").gameObject;
+
+        ObjectArm = transform.Find("ObjectArm");
+        Camera = ObjectArm.GetComponentInChildren<Camera>();
+        
+        BindPlayerHpEvents();
+    }
+
+    void BindPlayerHpEvents()
+    {
+        PlayerHp.OnDamageTaken += () =>
+        {
+            PlayerUI.UpdateHealthUI(PlayerHp.MaxHp, PlayerHp.CurrentHp);
+            PlayerUI.ShowDamageOverlay();
+        };
     }
 }

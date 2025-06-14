@@ -10,7 +10,6 @@ public class PlayerInteract : MonoBehaviour
     public Ray InteractRay;
 
     [Header("# External Reference Data")]
-    [SerializeField] Camera _camera;
     Player _player;
 
     void Awake()
@@ -23,7 +22,7 @@ public class PlayerInteract : MonoBehaviour
         _player.PlayerUI.UpdateInteractText(string.Empty);
 
         // 전방으로 Raycast 보내서 상호작용 가능한 객체 감지
-        InteractRay = _camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        InteractRay = _player.Camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         Debug.DrawRay(InteractRay.origin, InteractRay.direction * _distance, Color.red);
         RaycastHit hitInfo;
         if (Physics.Raycast(InteractRay, out hitInfo, _distance, mask))

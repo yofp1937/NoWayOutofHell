@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     public StateMachine StateMachine;
 
     [Header("# Reference Data")]
-    [HideInInspector] public EnemyHealth EnemyHealth;
+    [HideInInspector] public Hp EnemyHp;
     [HideInInspector] public EnemyAttack EnemyAttack;
     [HideInInspector] public EnemyAnimationController EnemyAnimCon;
 
@@ -31,9 +31,11 @@ public class Enemy : MonoBehaviour
         Agent = GetComponent<NavMeshAgent>();
         _scanner = GetComponent<TargetScanner>();
 
-        EnemyHealth = GetComponent<EnemyHealth>();
+        EnemyHp = GetComponent<Hp>();
         EnemyAttack = GetComponent<EnemyAttack>();
         EnemyAnimCon = GetComponent<EnemyAnimationController>();
+
+        BindEnemyHpEvents();
     }
 
     void OnEnable()
@@ -41,7 +43,6 @@ public class Enemy : MonoBehaviour
         SetMainData();
         _scanner.ResetDetectTimer();
         StateMachine.Init();
-        EnemyHealth.Reset();
         EnemyAnimCon.Reset();
     }
 
@@ -81,5 +82,13 @@ public class Enemy : MonoBehaviour
     public void UpdateCurrentState(string state)
     {
         _currentState = state;
+    }
+
+    void BindEnemyHpEvents()
+    {
+        EnemyHp.OnDeath += () =>
+        {
+            StateMachine.ChangeState(new DeadState());
+        };
     }
 }

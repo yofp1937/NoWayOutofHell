@@ -31,13 +31,19 @@ public class MeleeShotHandler : MonoBehaviour, IShotHandler
 
         // 쿨타임 적용
         StartCoroutine(ShotCoolDown());
+        StartCoroutine(ColliderTriggerCoolDown());
     }
 
     IEnumerator ShotCoolDown()
     {
+        yield return new WaitForSeconds(_melee.Data.FireRate + 0.75f);
+        _melee.CanShot = true;
+    }
+
+    IEnumerator ColliderTriggerCoolDown()
+    {
         yield return new WaitForSeconds(_melee.Data.FireRate);
         _melee.Collider.isTrigger = false;
-        yield return new WaitForSeconds(0.6f);
-        _melee.CanShot = true;
+        _melee.ClearHashSet();
     }
 }
