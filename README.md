@@ -3,35 +3,64 @@
  - 장르: FPS / 생존 / 좀비 아포칼립스
  - 플랫폼: PC
  - 개발인원: 1인 개발
- - 개발 기간: 2025.04.05 ~ 2025.06.13 (임시)
+ - 개발 기간: 2025.04.05 ~ 2025.06.15 (기본 시스템 완성)
  - 개발 엔진: Unity C#
  - 개발 목표: FPS 게임의 기본 시스템 구현(무기, 조준, 애니메이션, 적 AI 등)
 
 ## 📌 주요 기능
-### ① 캐릭터
- - Player.cs를 중심으로 기능별로 스크립트 분리 구성
- - 사용한 기술: Player Input System, 모듈화
- - 구현 요소: 카메라 시스템, 캐릭터 이동, 애니메이션 연동, Raycast 기반 상호작용 시스템, 체력 시스템, 총기 반동
-    - PlayerAnimationController - 애니메이션 처리(이동은 Blend Tree 활용, 무기별 Layer 분리)
-    - PlayerController - Player Input System을 활용한 Key 입력 처리(동작 제어와 입력 이벤트 매핑)
-    - PlayerHealth - 체력, 피해 처리
-    - PlayerIntercat - 상호작용 처리(카메라 중앙에서 Ray를 쏴 상호작용 가능한 객체를 탐지하고, UI 텍스트 갱신 및 상호작용 수행)
-    - PlayerItem - 무기 획득 및 장착과 장비 전환 처리
-    - PlayerLook - 마우스 입력 기반 시야 회전, 조준 상태 전환, 총기 반동 처리
-    - PlayerMovement - 입력 기반 이동 및 점프 처리, 시야 방향에 맞춘 캐릭터 회전 제어
-    - PlayerUI - 체력바, 탄약 수 등 UI 출력
+ ### ① 캐릭터
+☆바나나맨 이미지
+ - Player.cs를 중심으로 기능별로 스크립트 분리 구성(Player 제외 8개의 스크립트가 Player 객체를 구성함)
+★플레이어 데미지 입는 영상
+ - Hp - Player의 체력 관리, Action으로 데미지 받을때 피해 이미지 Overlay 호출
+★플레이어 움직이면서 카메라 회전하는 영상
+ - PlayerMovement, PlayerLook - Player의 이동과 카메라 움직임 처리
+★플레이어 무기 변경, 점프, 총쏘는거 장전 영상
+ - PlayerContoller - Input System과 연동되어 키와 동작 매핑 처리
+★플레이어 무기 줍는것, 총알 얻는것 영상
+ - PlayerInteract - 상호작용 가능한 객체들을 탐지하고 사용 가능하게함
+★플레이어 BlendTree, Layer 나눠서 동작하는 영상
+ - PlayerAnimationController - Player의 애니메이션 동작 처리
+<br>
+ - PlayerItem - Player의 무기 관련 처리
+ - PlayerUI - 체력바와 잔탄 업데이트 등 Player의 UI 처리
+
+ ### ② 몬스터
+☆좀비 이미지
+ - Enemy.cs를 중심으로 기능별로 스크립트 분리 구성(Enemy 제외 6개의 스크립트가 Enemy 객체를 구성함)
+ - Enemy의 움직임은 NavMeshAgent를 활용해 구현
+★좀비 부위별 데미지 주는 영상
+ - Hp - Enemy의 체력 관리
+ - StateMachne - Enemy의 상태에따라 PatrolState, AttackState, DeadState로 나뉘는 상태 처리 컴포넌트
+★좀비의 시야내에 들어가면 Player를 쫓아가고 공격하는 영상
+ - TargetScanner - Enemy의 시야 내에 Player의 존재유무 검사
+ - EnemyAttack - 전방에 Player가 존재하면 공격 처리
+★좀비 4마리 세워두고 헤드, 몸통, 팔, 다리 맞추고 콘솔에 어떻게 뜨는지 보여주는 영상
+ - HitBox - 부위별 데미지 구현
+<br>
+ - EnemyAnimationController - Enemy의 애니메이션 동작 처리
+
+ ### ③ 상호작용 오브젝트
  
- 몬스터
-
- 상호작용 오브젝트
-
- 무기
+ #### ⓐ 무기
+  - Weapon이라는 추상 클래스로 Gun, Melee 두가지 타입의 무기 컴포넌트 구현
+  - Weapon은 Interactable을 상속하여 Player가 상호작용하여 획득할 수 있음
+  - 무기별 데미지, 발사주기, 반동 등 고정 데이터는 GunData라는 ScriptableObject로 데이터 저장한뒤 런타임중 .Clone()을 통해 데이터를 복사하여 사용
+  - IShotHandler, IReloadHandler 인터페이스 사용으로 무기별 동작방식을 다르게 구현
+  
   - 주무기
-    - 자동소총
-    - 샷건
+★AK, Scar, M4 쏘는영상
+    - 자동소총: AK47, Scar, M4 - 세가지로 구성
+★샷건 두종류 쏘는영상
+    - 샷건: Shotgun, Auto Shotgun - 두가지로 구성
   - 보조무기
-    - 권총
-    - 근접무기
+★권총 두종류 쏘는영상
+    - 권총: Pistol, Magnum, Revolver - 세가지로 구성
+★근접무기 세종류 쓰는영상
+    - 근접무기: FireAxe, CrowBar, Shovel - 세가지로 구성
+
+    - 모든 무기들은 정조준하여 발사하면 반동이 줄어듬
  
- 상호작용 오브젝트
-  - 탄약상자
+#### ⓑ 기타 오브젝트
+★탄 보급받는 영상
+  - 탄약상자: 상호작용시 Player의 잔탄을 가득 채워줌
