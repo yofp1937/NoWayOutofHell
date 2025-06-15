@@ -9,21 +9,20 @@
 
 ## 📌 주요 기능
  ### ① 캐릭터
-☆바나나맨 이미지
+ ![image](https://github.com/user-attachments/assets/8cbad999-0c7d-4f0a-9247-005d0a294f00)
  - Player.cs를 중심으로 기능별로 스크립트 분리 구성(Player 제외 8개의 스크립트가 Player 객체를 구성함)
-★플레이어 데미지 입는 영상
- - Hp - Player의 체력 관리, Action으로 데미지 받을때 피해 이미지 Overlay 호출
-★플레이어 움직이면서 카메라 회전하는 영상
- - PlayerMovement, PlayerLook - Player의 이동과 카메라 움직임 처리
-★플레이어 무기 변경, 점프, 총쏘는거 장전 영상
- - PlayerContoller - Input System과 연동되어 키와 동작 매핑 처리
-★플레이어 무기 줍는것, 총알 얻는것 영상
- - PlayerInteract - 상호작용 가능한 객체들을 탐지하고 사용 가능하게함
-★플레이어 BlendTree, Layer 나눠서 동작하는 영상
- - PlayerAnimationController - Player의 애니메이션 동작 처리
-<br>
  - PlayerItem - Player의 무기 관련 처리
  - PlayerUI - 체력바와 잔탄 업데이트 등 Player의 UI 처리
+https://github.com/user-attachments/assets/253316b9-824e-4299-90dd-26f9d0d3297a
+ - Hp - Player의 체력 관리, Action으로 데미지 받을때 피해 이미지 Overlay 호출
+https://github.com/user-attachments/assets/ccc99610-ff47-4648-af02-7990f9995985
+ - PlayerMovement, PlayerLook - Player의 이동과 카메라 움직임 처리
+https://github.com/user-attachments/assets/770a44a8-9bb1-4226-8a3a-78e57b62c2c6
+ - PlayerContoller - Input System과 연동되어 키와 동작 매핑 처리
+https://github.com/user-attachments/assets/e353e3bc-a3a7-4f88-b4f0-b8cc5b88020c
+ - PlayerInteract - 상호작용 가능한 객체들을 탐지하고 사용 가능하게함
+https://github.com/user-attachments/assets/f26acb90-7291-4763-a2e9-9dd9ab2beaee
+ - PlayerAnimationController - Player의 애니메이션 동작 처리
 
  ### ② 몬스터
 ☆좀비 이미지
@@ -47,6 +46,7 @@
   - Weapon은 Interactable을 상속하여 Player가 상호작용하여 획득할 수 있음
   - 무기별 데미지, 발사주기, 반동 등 고정 데이터는 GunData라는 ScriptableObject로 데이터 저장한뒤 런타임중 .Clone()을 통해 데이터를 복사하여 사용
   - IShotHandler, IReloadHandler 인터페이스 사용으로 무기별 동작방식을 다르게 구현
+  - 총알은 Rigidbody로 정확한 충돌 판정 감지가 어려워서 Bullet 컴포넌트에서 Raycast로 충돌 여부를 감지함
   
   - 주무기
 ★AK, Scar, M4 쏘는영상
