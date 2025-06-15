@@ -21,7 +21,7 @@ https://github.com/user-attachments/assets/770a44a8-9bb1-4226-8a3a-78e57b62c2c6
  - PlayerContoller - Input System과 연동되어 키와 동작 매핑 처리
 https://github.com/user-attachments/assets/e353e3bc-a3a7-4f88-b4f0-b8cc5b88020c
  - PlayerInteract - 상호작용 가능한 객체들을 탐지하고 사용 가능하게함
-https://github.com/user-attachments/assets/f26acb90-7291-4763-a2e9-9dd9ab2beaee
+![PlayerAnim](https://github.com/user-attachments/assets/cf7faf83-2508-4b0f-9f80-8d7f4deb27b4)
  - PlayerAnimationController - Player의 애니메이션 동작 처리
 
  ### ② 몬스터
