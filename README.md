@@ -13,16 +13,16 @@
  - Player.cs를 중심으로 기능별로 스크립트 분리 구성(Player 제외 8개의 스크립트가 Player 객체를 구성함)
  - PlayerItem - Player의 무기 관련 처리
  - PlayerUI - 체력바와 잔탄 업데이트 등 Player의 UI 처리
-https://github.com/user-attachments/assets/253316b9-824e-4299-90dd-26f9d0d3297a
  - Hp - Player의 체력 관리, Action으로 데미지 받을때 피해 이미지 Overlay 호출
-https://github.com/user-attachments/assets/ccc99610-ff47-4648-af02-7990f9995985
+https://github.com/user-attachments/assets/253316b9-824e-4299-90dd-26f9d0d3297a
  - PlayerMovement, PlayerLook - Player의 이동과 카메라 움직임 처리
-https://github.com/user-attachments/assets/770a44a8-9bb1-4226-8a3a-78e57b62c2c6
+https://github.com/user-attachments/assets/ccc99610-ff47-4648-af02-7990f9995985
  - PlayerContoller - Input System과 연동되어 키와 동작 매핑 처리
-https://github.com/user-attachments/assets/e353e3bc-a3a7-4f88-b4f0-b8cc5b88020c
+https://github.com/user-attachments/assets/770a44a8-9bb1-4226-8a3a-78e57b62c2c6
  - PlayerInteract - 상호작용 가능한 객체들을 탐지하고 사용 가능하게함
-![PlayerAnim](https://github.com/user-attachments/assets/cf7faf83-2508-4b0f-9f80-8d7f4deb27b4)
+https://github.com/user-attachments/assets/e353e3bc-a3a7-4f88-b4f0-b8cc5b88020c
  - PlayerAnimationController - Player의 애니메이션 동작 처리
+![PlayerAnim](https://github.com/user-attachments/assets/59686f25-39ca-41fc-9c63-42c38a1b8d99)
 
  ### ② 몬스터
 ☆좀비 이미지
