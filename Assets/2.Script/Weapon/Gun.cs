@@ -67,7 +67,7 @@ public class Gun : Weapon
             }
 
             _shotHandler.Shot();
-            PlayerLook.Recoil(_data.RecoilKickBack, _data.RecoilAmount);
+            PlayerLook.Recoil(AmmoData.RecoilKickBack, AmmoData.RecoilAmount);
 
             yield return new WaitForSeconds(_data.FireRate);
         }
@@ -128,9 +128,9 @@ public class Gun : Weapon
     {
         if (isAiming)
         {
-            AmmoData.RecoilKickBack = new Vector3(0.0025f, 0.005f, 0);
-            AmmoData.RecoilAmount = 0.0025f;
-            // Debug.Log($"{gameObject.name}'s x: {AmmoData.RecoilKickBack.x}, y: {AmmoData.RecoilKickBack.y}, z: {AmmoData.RecoilKickBack.z}, Amount: {AmmoData.RecoilAmount}");
+            AmmoData.RecoilKickBack = new Vector3(0.025f, 0.05f, 0);
+            AmmoData.RecoilAmount = 0.05f;
+            Debug.Log($"{gameObject.name}'s x: {AmmoData.RecoilKickBack.x}, y: {AmmoData.RecoilKickBack.y}, z: {AmmoData.RecoilKickBack.z}, Amount: {AmmoData.RecoilAmount}");
         }
         else
         {
