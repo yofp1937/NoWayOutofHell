@@ -37,7 +37,7 @@ https://github.com/user-attachments/assets/1a6aac55-5f4c-4bad-8e3a-500a0774ae6f
 https://github.com/user-attachments/assets/2caf83c2-8f63-4c5d-aa68-c17ec977d499
 
 
- - PlayerAnimationController - Player의 애니메이션 동작 처리
+ - PlayerAnimationController - Player의 애니메이션 동작 처리(무기별 Layer 분리)
 
 
 https://github.com/user-attachments/assets/575c39fe-cd68-4d88-a1ed-4b73151251f8
@@ -49,15 +49,21 @@ https://github.com/user-attachments/assets/575c39fe-cd68-4d88-a1ed-4b73151251f8
 ☆좀비 이미지
  - Enemy.cs를 중심으로 기능별로 스크립트 분리 구성(Enemy 제외 6개의 스크립트가 Enemy 객체를 구성함)
  - Enemy의 움직임은 NavMeshAgent를 활용해 구현
-★좀비 부위별 데미지 주는 영상
  - Hp - Enemy의 체력 관리
- - StateMachne - Enemy의 상태에따라 PatrolState, AttackState, DeadState로 나뉘는 상태 처리 컴포넌트
-★좀비의 시야내에 들어가면 Player를 쫓아가고 공격하는 영상
+ - HitBox - 부위별 데미지 구현
+
+
+https://github.com/user-attachments/assets/13891b57-5071-4d5c-8eae-5147185bde1e
+
+
+ - StateMachine - Enemy의 상태에따라 PatrolState, AttackState, DeadState로 나뉘는 상태 처리 컴포넌트
+
+
+https://github.com/user-attachments/assets/6bfe31db-97e8-4360-a41c-5800eab3f06a
+
+
  - TargetScanner - Enemy의 시야 내에 Player의 존재유무 검사
  - EnemyAttack - 전방에 Player가 존재하면 공격 처리
-★좀비 4마리 세워두고 헤드, 몸통, 팔, 다리 맞추고 콘솔에 어떻게 뜨는지 보여주는 영상
- - HitBox - 부위별 데미지 구현
-<br>
  - EnemyAnimationController - Enemy의 애니메이션 동작 처리
 
  ### ③ 상호작용 오브젝트
@@ -70,18 +76,36 @@ https://github.com/user-attachments/assets/575c39fe-cd68-4d88-a1ed-4b73151251f8
   - 총알은 Rigidbody로 정확한 충돌 판정 감지가 어려워서 Bullet 컴포넌트에서 Raycast로 충돌 여부를 감지함
   
   - 주무기
-★AK, Scar, M4 쏘는영상
     - 자동소총: AK47, Scar, M4 - 세가지로 구성
-★샷건 두종류 쏘는영상
+
+
+https://github.com/user-attachments/assets/231ffc78-54dc-40a8-91ce-2c6e5f5111da
+
+
     - 샷건: Shotgun, Auto Shotgun - 두가지로 구성
+
+
+https://github.com/user-attachments/assets/96fe5f61-fc49-4976-9c09-e6ec71d0e332
+
+
   - 보조무기
-★권총 두종류 쏘는영상
     - 권총: Pistol, Magnum, Revolver - 세가지로 구성
-★근접무기 세종류 쓰는영상
+
+
+https://github.com/user-attachments/assets/ef346346-20af-4618-a523-7ce86d4e90c9
+
+
     - 근접무기: FireAxe, CrowBar, Shovel - 세가지로 구성
+
+
+https://github.com/user-attachments/assets/56f95cd3-a7f4-472f-b691-0156cfc87e11
+
 
     - 모든 무기들은 정조준하여 발사하면 반동이 줄어듬
  
 #### ⓑ 기타 오브젝트
-★탄 보급받는 영상
   - 탄약상자: 상호작용시 Player의 잔탄을 가득 채워줌
+
+
+https://github.com/user-attachments/assets/7bd129c6-c2e9-4c04-b9ee-9e3cc698773d
+
