@@ -84,7 +84,7 @@ public class Bullet : MonoBehaviour
         }
         // 총알 위치를 충돌 지점으로 옮겨서 임팩트 효과 등 연출 가능
         transform.position = hitPoint;
-        if (GameManager.Instance.DebugMode)
+        if (InGameManager.Instance.DebugMode)
         {
             GameObject debugObj = PoolManager.Instance.Get(PoolManager.Instance.DebugObj);
             debugObj.transform.parent = PoolManager.Instance.DebugT;

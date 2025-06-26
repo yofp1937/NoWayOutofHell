@@ -5,9 +5,14 @@ using UnityEngine;
 public class EnemyAnimationController : MonoBehaviour
 {
     Enemy _enemy;
-    Animator _anim;
+    [SerializeField] Animator _anim;
 
     void Awake()
+    {
+        GetComponent();
+    }
+
+    void GetComponent()
     {
         _enemy = GetComponent<Enemy>();
         _anim = GetComponent<Animator>();
@@ -15,6 +20,10 @@ public class EnemyAnimationController : MonoBehaviour
 
     public void Reset()
     {
+        if (_anim == null)
+        {
+            GetComponent();
+        }
         _anim.SetBool("IsRun", _enemy.IsRun);
         _anim.SetBool("HasTarget", false);
     }

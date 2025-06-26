@@ -68,10 +68,7 @@ public class ShotHandler : MonoBehaviour, IShotHandler
         yield return new WaitForSeconds(delay);
 
         ShootBullet();
-
-        // Recoil 적용
-        GunData gunData = _gun.Data as GunData;
-        _gun.PlayerLook.Recoil(gunData.RecoilKickBack, gunData.RecoilAmount);
+        _gun.PlayerLook.Recoil(_gun.AmmoData.RecoilKickBack, _gun.AmmoData.RecoilAmount);
 
         // 탄약 소비, UI 업데이트
         _gun.AmmoData.LoadedAmmo -= 1;

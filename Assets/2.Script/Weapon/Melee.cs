@@ -11,7 +11,6 @@ public class Melee : Weapon
     [HideInInspector] public AudioHandler AudioHandler;
     HashSet<GameObject> _hitEnemies = new HashSet<GameObject>();
 
-
     protected override void Init()
     {
         _shotHandler = GetComponent<IShotHandler>();

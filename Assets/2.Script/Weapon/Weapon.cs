@@ -123,7 +123,7 @@ public abstract class Weapon : Interactable
     /// </summary>
     public void SetPosition()
     {
-        transform.SetParent(GameManager.Instance.InteractableT);
+        transform.SetParent(InGameManager.Instance.InteractableT);
         transform.position = PlayerItem.MainT.position;
         transform.rotation = Quaternion.identity;
     }

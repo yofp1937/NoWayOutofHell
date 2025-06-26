@@ -130,7 +130,7 @@ public class Gun : Weapon
         {
             AmmoData.RecoilKickBack = new Vector3(0.025f, 0.05f, 0);
             AmmoData.RecoilAmount = 0.05f;
-            Debug.Log($"{gameObject.name}'s x: {AmmoData.RecoilKickBack.x}, y: {AmmoData.RecoilKickBack.y}, z: {AmmoData.RecoilKickBack.z}, Amount: {AmmoData.RecoilAmount}");
+            // Debug.Log($"{gameObject.name}'s x: {AmmoData.RecoilKickBack.x}, y: {AmmoData.RecoilKickBack.y}, z: {AmmoData.RecoilKickBack.z}, Amount: {AmmoData.RecoilAmount}");
         }
         else
         {

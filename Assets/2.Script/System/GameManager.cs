@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    [Header("# Reference Data")]
-    public Transform InteractableT;
-    public bool DebugMode;
+    public NetworkManager NetworkManager;
+
+    void Awake()
+    {
+        NetworkManager = GetComponentInChildren<NetworkManager>();
+    }
 }

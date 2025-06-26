@@ -20,7 +20,7 @@ public class EnemyAttack : MonoBehaviour
     }
 
     /// <summary>
-    /// 플레이어가 공격범위내에 들어와있는지 검사
+    /// 플레이어가 공격범위내에 들어와있는지 검사후 PlayerHp 할당
     /// </summary>
     public bool IsInAttackRange()
     {
