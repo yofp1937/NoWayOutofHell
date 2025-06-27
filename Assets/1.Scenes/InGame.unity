@@ -2290,7 +2290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 892758684}
-  - component: {fileID: 892758683}
+  - component: {fileID: 892758685}
   m_Layer: 0
   m_Name: PoolManager
   m_TagString: Untagged
@@ -2298,22 +2298,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &892758683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 892758682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aff8fad0c38afa45b9d0dfadfef4595, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DebugObj: {fileID: 2670482741071698483, guid: 01bd4640f52e70d45abb16b295ee5dbc,
-    type: 3}
-  DebugT: {fileID: 438362040}
-  Zombie: {fileID: 4493914613880827488, guid: c198cbfa76c95ac4496e06376dcbf5fe, type: 3}
 --- !u!4 &892758684
 Transform:
   m_ObjectHideFlags: 0
@@ -2331,6 +2315,22 @@ Transform:
   - {fileID: 1887423639}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &892758685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892758682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165bf26bc03848e4487ececb258abed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DebugObj: {fileID: 2670482741071698483, guid: 01bd4640f52e70d45abb16b295ee5dbc,
+    type: 3}
+  DebugT: {fileID: 438362040}
+  Zombie: {fileID: 4493914613880827488, guid: c198cbfa76c95ac4496e06376dcbf5fe, type: 3}
 --- !u!1 &903980858
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,59 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolManager : Singleton<PoolManager>
+namespace Game.System
 {
-    [Header("# Main Data")]
-    public GameObject DebugObj;
-    public Transform DebugT;
-    public GameObject Zombie;
-    private Dictionary<string, List<GameObject>> m_poolDict = new Dictionary<string, List<GameObject>>();
-
-    public GameObject Get(GameObject prefab)
+    public abstract class PoolManager
     {
-        GameObject obj = null;
-        string key = prefab.name;
+        protected Dictionary<string, List<GameObject>> m_poolDict = new Dictionary<string, List<GameObject>>();
 
-        // _poolDict에 key가 존재하지않으면 객체 생성 후 등록
-        if (!m_poolDict.ContainsKey(key))
+        /// <summary>
+        /// Pool에 존재하는 prefab 반환(없으면 생성하여 반환)
+        /// </summary>
+        public GameObject Get(GameObject prefab)
         {
-            m_poolDict[key] = new List<GameObject>();
-            obj = CreateObject(key, prefab);
-            // Debug.Log($"[PoolManager]: pool 미존재로 생성");
-        }
+            GameObject obj = null;
+            string key = prefab.name;
 
-        // _poolDict에 비활성화된 객체 검사하여 등록
-        foreach (var pooledObj in m_poolDict[key])
-        {
-            if (!pooledObj.activeInHierarchy)
+            // _poolDict에 key가 존재하지않으면 객체 생성 후 등록
+            if (!m_poolDict.ContainsKey(key))
             {
-                obj = pooledObj;
-                // Debug.Log($"[PoolManager]: 발견된 obj 반환");
-                break;
+                m_poolDict[key] = new List<GameObject>();
+                obj = CreateObject(key, prefab);
+                // Debug.Log($"[PoolManager]: pool 미존재로 생성");
             }
+
+            // _poolDict에 비활성화된 객체 검사하여 등록
+            foreach (var pooledObj in m_poolDict[key])
+            {
+                if (!pooledObj.activeInHierarchy)
+                {
+                    obj = pooledObj;
+                    // Debug.Log($"[PoolManager]: 발견된 obj 반환");
+                    break;
+                }
+            }
+
+            // 비활성화된 객체가 존재하지않으면 객체 생성 후 등록
+            if (obj == null)
+            {
+                obj = CreateObject(key, prefab);
+                // Debug.Log($"[PoolManager]: obj 생성 후 반환");
+            }
+
+            // obj.transform.parent = transform;
+            // obj.transform.position = transform.position;
+            obj.SetActive(true);
+            return obj;
         }
 
-        // 비활성화된 객체가 존재하지않으면 객체 생성 후 등록
-        if (obj == null)
-        {
-            obj = CreateObject(key, prefab);
-            // Debug.Log($"[PoolManager]: obj 생성 후 반환");
-        }
-
-        obj.transform.parent = transform;
-        obj.transform.position = transform.position;
-        obj.SetActive(true);
-        return obj;
-    }
-
-    /// <summary>
-    /// 새로운 객체 생성 후 _poolDict에 등록
-    /// </summary>
-    GameObject CreateObject(string key, GameObject prefab)
-    {
-        GameObject obj = Instantiate(prefab);
-        obj.name = key;
-        m_poolDict[key].Add(obj);
-        return obj;
+        /// <summary>
+        /// 새로운 객체 생성 후 _poolDict에 등록
+        /// </summary>
+        protected abstract GameObject CreateObject(string key, GameObject prefab);
     }
 }
