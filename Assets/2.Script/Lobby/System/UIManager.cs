@@ -10,7 +10,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] GameObject _nicknamePanel;
     [SerializeField] GameObject _mainMenuPanel;
     [SerializeField] GameObject _createGamePanel;
-    [SerializeField] GameObject _gameRoomPanel;
+    public GameObject GameRoomPanel;
     [SerializeField] GameObject _roomSearchPanel;
 
     void Awake()
@@ -19,7 +19,7 @@ public class UIManager : Singleton<UIManager>
         _nicknamePanel.SetActive(false);
         _mainMenuPanel.SetActive(false);
         _createGamePanel.SetActive(false);
-        _gameRoomPanel.SetActive(false);
+        GameRoomPanel.SetActive(false);
         _roomSearchPanel.SetActive(false);
     }
 
@@ -63,7 +63,7 @@ public class UIManager : Singleton<UIManager>
     /// </summary>
     public void SetActiveGameRoom(bool active)
     {
-        _gameRoomPanel.SetActive(active);
+        GameRoomPanel.SetActive(active);
     }
 
     /// <summary>
@@ -74,7 +74,6 @@ public class UIManager : Singleton<UIManager>
         if (active)
         {
             var handler = _roomSearchPanel.GetComponent<RoomSearchHandler>();
-            Debug.Log($"{handler}");
             handler.GetRoomListAndUpdateUI();
         }
         _roomSearchPanel.SetActive(active);

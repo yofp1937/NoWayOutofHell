@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 // Lobby 상태 흐름 관리용
@@ -41,7 +40,7 @@ public class LobbyManager : Singleton<LobbyManager>
             case LobbyState.MainMenu:
                 Debug.Log("메인메뉴 입장");
                 // TODO - UIManager의 메인화면 표시 메서드 실행
-                // 이때 네트워크 접속이 안돼있을시 싱글로 플레이할지 확인받고 싱글로 한다하면 다시 네트워크 검사 x(네트워크 수동 접속 버튼만 만들어놓기) 
+                // 이때 네트워크 접속이 안돼있을시 싱글로 플레이할지 확인받고 싱글로 한다하면 다시 네트워크 검사 x(네트워크 수동 접속 버튼만 만들어놓기)
                 break;
             case LobbyState.CreateRoom:
                 Debug.Log("방 생성 입장");
@@ -58,7 +57,6 @@ public class LobbyManager : Singleton<LobbyManager>
                 break;
             case LobbyState.InRoom:
                 Debug.Log("방에 참여함");
-                UIManager.Instance.SetActiveGameRoom(true);
                 // TODO 서버에 GameRoom 동기화 요청
                 break;
         }
@@ -87,6 +85,7 @@ public class LobbyManager : Singleton<LobbyManager>
                 break;
             case LobbyState.InRoom:
                 Debug.Log("방 나갔음");
+                GameManager.Instance.NetworkManager.LeaveRoom();
                 UIManager.Instance.SetActiveGameRoom(false);
                 // TODO NetworkManager에게 방 나가기 요청
                 break;

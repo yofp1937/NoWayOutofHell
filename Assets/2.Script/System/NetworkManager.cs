@@ -4,6 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using ExitGames.Client.Photon;
+using System;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -11,7 +12,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public bool IsConnected; // 네트워크 연결 상태 확인
 
-    List<RoomInfo> _cachedRoomList = new List<RoomInfo>();
+    List<RoomInfo> _cachedRoomList = new List<RoomInfo>(); // 이전에 불러왔던 방 리스트들
+
+    public static event Action<Photon.Realtime.Player> OnPlayerEntered;
+    public static event Action<Photon.Realtime.Player> OnPlayerLeft;
 
     void Awake()
     {
@@ -76,7 +80,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         IsConnected = false;
     }
 
-    public void JoinLobby()
+    void JoinLobby()
     {
         // 로비는 4가지 기준으로 다른 로비를 만들 수 있다.
         // 1:로비 이름, 2:로비 타입, 3:게임 버전, 4:지역
@@ -118,30 +122,50 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (password != "")
         {
             hash["password"] = password;
+            hash["needPassword"] = true;
         }
 
         // CustomRoomProperties는 방에 참가후 내부에서 확인할수있는 정보
         // CustomRoomPropertiesForLobby는 로비에서 확인할수있는 정보 제공용 속성
         roomOptions.CustomRoomProperties = hash;
 
-        roomOptions.CustomRoomPropertiesForLobby = new string[] { "host" }; // 패스워드는 로비에서 확인 불가하게 설정
+        roomOptions.CustomRoomPropertiesForLobby = new string[] { "host", "needPassword" }; // 패스워드는 로비에서 확인 불가하게 설정
 
         PhotonNetwork.CreateRoom(roomName, roomOptions);
     }
 
-    public void JoinRoom()
+    public void JoinRoom(string roomName)
     {
-        // PhotonNetwork.JoinRoom(RoomInput.text);
-    }
+        if (PhotonNetwork.InRoom)
+        {
+            Debug.Log("이미 방에 참가중입니다.");
+            return;
+        }
 
-    public void JoinRandomRoom()
-    {
-        PhotonNetwork.JoinRandomRoom();
+        if (PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.JoinRoom(roomName);
+            LobbyManager.Instance.ChangeState(LobbyState.InRoom);
+        }
+        else
+        {
+            Debug.Log("로비에 입장해주세요.");
+        }
     }
 
     public void LeaveRoom()
     {
+        if (!IsConnected || !PhotonNetwork.InRoom)
+        {
+            Debug.Log("방을 나갈수 없음");
+            return;
+        }
+
         PhotonNetwork.LeaveRoom();
+    }
+    public override void OnLeftRoom()
+    {
+        LobbyManager.Instance.ChangeState(LobbyState.MainMenu);
     }
 
     public override void OnCreatedRoom()
@@ -161,6 +185,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         print("방 참가 완료");
+        UIManager.Instance.GameRoomPanel.GetComponent<GameRoomHandler>().Init(PhotonNetwork.CurrentRoom);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -171,19 +196,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         print("방 참가 실패");
-    }
-
-    public override void OnJoinRandomFailed(short returnCode, string message)
-    {
-        print("방 랜덤참가 실패");
-    }
-
-    /// <summary>
-    /// 현재 방에 접속중인 유저수 반환
-    /// </summary>
-    public int GetCurrentConnectPlayerCountInRoom()
-    {
-        return PhotonNetwork.CurrentRoom.PlayerCount;
     }
 
     public List<RoomInfo> GetRoomList()
@@ -217,5 +229,34 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 }
             }
         }
+    }
+
+    public Room GetCurrentRoomData()
+    {
+        // Debug.Log(PhotonNetwork.CurrentRoom);
+        return PhotonNetwork.CurrentRoom;
+    }
+
+    public Dictionary<int, Photon.Realtime.Player> GetPlayersInCurrentRoom()
+    {
+        return PhotonNetwork.CurrentRoom.Players;
+    }
+
+    /// <summary>
+    /// 다른 플레이어가 방에 참가했을때 호출
+    /// </summary>
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    {
+        // 방 UI 업데이트
+        OnPlayerEntered?.Invoke(newPlayer);
+    }
+
+    /// <summary>
+    /// 다른 플레이어가 방을 떠났을때 호출
+    /// </summary>
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player leavedPlayer)
+    {
+        // 방 UI 업데이트
+        OnPlayerLeft?.Invoke(leavedPlayer);
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class RoomSearchHandler : MonoBehaviour
 {
     List<RoomInfo> _cashedRoomList; // Photon에서 받아온 roomList
-    List<RoomInfoGroup> _roomList; // 표시중인 roomList
+    List<RoomInfoGroup> _roomList; // 표시중인 roomList(새로고침할때마다 최신화된 상태를 유지)
     RoomInfoGroup _target;
 
     [SerializeField] Transform _scrollContentT;
@@ -49,15 +49,17 @@ public class RoomSearchHandler : MonoBehaviour
     void OnClickRefresh()
     {
         GetRoomListAndUpdateUI();
+        // TODO - 5초에 한번씩 누를수있게 변경
     }
 
     void OnClickJoinRoom()
     {
         // TODO - target Room으로 입장
+        _netManager.JoinRoom(_target.RoomInfo.Name);
         // ChangeState InRoom
-        GameObject obj = PoolManager.Instance.Get(PoolManager.Instance.RoomInfoGroup);
-        obj.transform.SetParent(_scrollContentT);
-        obj.GetComponent<RoomInfoGroup>().Init(null, this);
+
+        // 패스워드 필요하면 패스워드 입력창이 떠야함
+        // 방제목 더블클릭으로도 접속이 가능하게 만들기
     }
 
     void OnClickExit()
@@ -70,6 +72,47 @@ public class RoomSearchHandler : MonoBehaviour
         // 1._cahsedRoomList와 _roomList의 방이름을 비교해가며 수정 사항을 업데이트함
         // 2._cahsed엔 있는데 _roomList엔 없는 방이 존재하면 PoolManager를 통해 RoomInfo Group을 반환받음
         // 3.RoomInfo Group에 데이터 세팅함
+        if (_roomList == null)
+            _roomList = new List<RoomInfoGroup>();
+
+        // 1. 현재 _roomList 기준으로 표시되고있는 방 이름 저장
+        Dictionary<string, RoomInfoGroup> currentRoomDict = new Dictionary<string, RoomInfoGroup>();
+        foreach (RoomInfoGroup room in _roomList)
+        {
+            currentRoomDict[room.RoomInfo.Name] = room;
+        }
+
+        // 2. 덮어쓰기용 새로운 List 준비
+        List<RoomInfoGroup> newRoomList = new List<RoomInfoGroup>();
+
+        // 3. _cashedRoomList 기준으로 UI를 업데이트
+        foreach (RoomInfo roomInfo in _cashedRoomList)
+        {
+            RoomInfoGroup group;
+
+            // 이미 화면에 있는 방이면 업데이트
+            if (currentRoomDict.TryGetValue(roomInfo.Name, out group))
+            {
+                group.Init(roomInfo, this); // 정보 갱신
+                currentRoomDict.Remove(roomInfo.Name); // Dict에서 수정 완료된 데이터 제거
+            }
+            else // 새로 생긴 방이면 PoolManager를 통해 생성
+            {
+                GameObject obj = PoolManager.Instance.Get(PoolManager.Instance.RoomInfoGroup);
+                obj.transform.SetParent(_scrollContentT);
+
+                group = obj.GetComponent<RoomInfoGroup>();
+                group.Init(roomInfo, this);
+            }
+            newRoomList.Add(group);
+        }
+
+        // 4. 화면에 있었지만 사라진 방은 제거
+        foreach (RoomInfoGroup room in currentRoomDict.Values)
+        {
+            room.gameObject.SetActive(false);
+        }
+        _roomList = newRoomList;
     }
 
     public void ChangeTarget(RoomInfoGroup target)
