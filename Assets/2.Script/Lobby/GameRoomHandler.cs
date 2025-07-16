@@ -13,11 +13,10 @@ public class GameRoomHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI _playerText;
     [SerializeField] Image _lock;
     [SerializeField] TextMeshProUGUI _roomLeader;
-    int _currentPlayer;
-    int _maxPlayer;
 
     [Header("# Connect Player")]
-    [SerializeField] GameObject[] _connectPlayers;
+    [SerializeField] GameObject[] _connectPlayerUI;
+    Dictionary<int, Photon.Realtime.Player> PlayerDict;
 
     // [Header("# Chat")]
     // 채팅은 따로 스크립트 생성하고 참조하는게 나아보임
@@ -54,15 +53,21 @@ public class GameRoomHandler : MonoBehaviour
     {
         if (_netManager == null) _netManager = GameManager.Instance.NetworkManager;
         if (!_netManager.IsConnected) return;
-        _currentPlayer = 0;
 
         string roomName = data.Name;
         bool isLock = data.CustomProperties.ContainsKey("needPassword");
         string roomLeader = data.CustomProperties.ContainsKey("host") ? data.CustomProperties["host"].ToString() : "Unknown";
         int maxPlayer = data.MaxPlayers;
 
+        PlayerDict = new Dictionary<int, Photon.Realtime.Player>();
+        foreach (var kvp in data.Players)
+        {
+            Debug.Log($"kvp: {kvp}, Key: {kvp.Key}, Value: {kvp.Value}");
+            PlayerDict.Add(kvp.Key, kvp.Value);
+        }
+
         // 닉네임칸 초기화
-        foreach (GameObject connectPlayer in _connectPlayers)
+        foreach (GameObject connectPlayer in _connectPlayerUI)
         {
             TextMeshProUGUI nickText = connectPlayer.GetComponentInChildren<TextMeshProUGUI>();
             nickText.text = "";
@@ -99,14 +104,13 @@ public class GameRoomHandler : MonoBehaviour
         }
 
         _roomLeader.text = roomLeader;
-        _maxPlayer = maxPlayer;
 
-        UpdateRoomUI(null);
+        InitConnectPlayerUI();
     }
 
-    void UpdateRoomUI(Photon.Realtime.Player player)
+    void UpdateRoomUI()
     {
-        UpdateConnectPlayerUI(player);
+        UpdateConnectPlayerUI();
     }
 
     /// <summary>
@@ -114,84 +118,101 @@ public class GameRoomHandler : MonoBehaviour
     /// </summary>
     void UpdateConnectPlayerCountText()
     {
+        Room data = _netManager.GetCurrentRoomData();
+
         string text = "( ";
-        text += _currentPlayer;
+        text += data.PlayerCount;
         text += " / ";
-        text += _maxPlayer;
+        text += data.MaxPlayers;
         text += " )";
 
         _playerText.text = text;
     }
 
+    void InitConnectPlayerUI()
+    {
+        // 접속중인 유저들의 목록을 받아옴
+        Room data = _netManager.GetCurrentRoomData();
+        Dictionary<int, Photon.Realtime.Player> dict = new Dictionary<int, Photon.Realtime.Player>(data.Players);
+
+        // 닉네임 세팅 반복문 시작
+        foreach (GameObject connectPlayer in _connectPlayerUI)
+        {
+            // 세팅할 player가 존재하지 않으면 반복문 종료
+            if (0 >= dict.Count) break;
+
+            TextMeshProUGUI nickText = connectPlayer.GetComponentInChildren<TextMeshProUGUI>();
+
+            // 닉네임이 공백으로 설정돼있으면(비어있는 칸이면) 닉네임 세팅
+            if (string.IsNullOrEmpty(nickText.text))
+            {
+                // 열거자를 사용하여 Dictionary의 첫번째 요소를 가져와서 사용
+                var enumerator = dict.GetEnumerator();
+                enumerator.MoveNext();
+                nickText.text = enumerator.Current.Value.NickName;
+                // 사용한 값 Dictionary에서 제거
+                dict.Remove(enumerator.Current.Key);
+            }
+        }
+        UpdateConnectPlayerCountText();
+    }
+
     /// <summary>
     /// 접속중인 플레이어 닉네임 업데이트
     /// </summary>
-    void UpdateConnectPlayerUI(Photon.Realtime.Player player)
+    void UpdateConnectPlayerUI()
     {
-        // 1. player가 null이면 초기 방생성이므로 접속중인 모든 플레이어를 표시해야함
-        if (player == null)
+        // 접속중인 유저들의 목록을 받아옴
+        Room data = _netManager.GetCurrentRoomData();
+        Dictionary<int, Photon.Realtime.Player> dict = new Dictionary<int, Photon.Realtime.Player>(data.Players);
+
+        // _connectPlayerUI 배열을 List로 복사(플레이어 확인용)
+        List<GameObject> connectPlayerList = new List<GameObject>(_connectPlayerUI);
+
+        // 1.PlayerUI를 순회하며 닉네임 확인
+        foreach (var player in dict)
         {
-            // 접속중인 유저들의 목록을 받아옴
-            Dictionary<int, Photon.Realtime.Player> dict = _netManager.GetPlayersInCurrentRoom();
+            string nickname = player.Value.NickName;
+            bool isFound = false;
 
-            // 닉네임 세팅 반복문 시작
-            foreach (GameObject connectPlayer in _connectPlayers)
-            {
-                // 세팅할 player가 존재하지 않으면 반복문 종료
-                if (0 >= dict.Count) break;
-
-                TextMeshProUGUI nickText = connectPlayer.GetComponentInChildren<TextMeshProUGUI>();
-
-                // 닉네임이 공백으로 설정돼있으면(비어있는 칸이면) 닉네임 세팅
-                if (string.IsNullOrEmpty(nickText.text))
-                {
-                    // 열거자를 사용하여 Dictionary의 첫번째 요소를 가져와서 사용
-                    var enumerator = dict.GetEnumerator();
-                    enumerator.MoveNext();
-                    nickText.text = enumerator.Current.Value.NickName;
-                    // 사용한 값 Dictionary에서 제거
-                    dict.Remove(enumerator.Current.Key);
-                    _currentPlayer++;
-                }
-            }
-        }
-        // 2. player 값이 존재하면 해당 플레이어의 닉네임이 _connectPlayer에 존재하는지 확인
-        //    동일한 닉네임 존재 - player가 방을 나간것
-        //    동일한 닉네임 없음 - player가 방에 입장한것
-        else
-        {
-            string nickname = player.NickName;
-            bool nickExists = false;
-
-            // 동일한 닉네임이 존재하는지 확인
-            foreach (GameObject connectPlayer in _connectPlayers)
+            // 복사한 리스트 순회
+            foreach (GameObject connectPlayer in connectPlayerList)
             {
                 TextMeshProUGUI nickText = connectPlayer.GetComponentInChildren<TextMeshProUGUI>();
 
-                // 동일한 닉네임 존재하면(Player가 나간것이므로 닉네임 공백으로 변경)
-                if (nickText.text == nickname)
+                // 동일 닉네임을 찾으면 해당 UI를 리스트에서 제거(중복닉 오류 방지)
+                if (nickText != null && nickText.text == nickname)
                 {
-                    nickText.text = "";
-                    nickExists = true;
-                    _currentPlayer--;
+                    connectPlayerList.Remove(connectPlayer);
+                    isFound = true;
                     break;
                 }
             }
 
-            // 닉네임이 존재하지 않으면(Player가 입장한것이므로 닉네임 추가)
-            if (!nickExists)
+            // 2.닉네임이 UI에 존재하지 않을경우 새로 입장한 유저이므로 UI에 추가
+            if (!isFound)
             {
-                foreach (GameObject connectPlayer in _connectPlayers)
+                foreach (GameObject connectPlayer in connectPlayerList)
                 {
                     TextMeshProUGUI nickText = connectPlayer.GetComponentInChildren<TextMeshProUGUI>();
 
-                    // 빈칸에 닉네임 추가
-                    if (string.IsNullOrEmpty(nickText.text))
+                    if (nickText != null && string.IsNullOrEmpty(nickText.text))
                     {
                         nickText.text = nickname;
-                        _currentPlayer++;
+                        connectPlayerList.Remove(connectPlayer);
                         break;
                     }
+                }
+            }
+
+            // 3. 이후 남은 connectPlayerUI는 공백처리(나간 유저 처리)
+            foreach (GameObject connectPlayer in connectPlayerList)
+            {
+                TextMeshProUGUI nickText = connectPlayer.GetComponentInChildren<TextMeshProUGUI>();
+
+                if (nickText != null && !string.IsNullOrEmpty(nickText.text))
+                {
+                    nickText.text = "";
                 }
             }
         }
@@ -208,7 +229,21 @@ public class GameRoomHandler : MonoBehaviour
 
     void OnClickGameStart()
     {
+        Room data = _netManager.GetCurrentRoomData();
+        Debug.Log($"[GameStartBtn]: {data}");
+        foreach (var p in data.Players)
+        {
+            Debug.Log($"[CurrentRoom.Players]: {p.Value}");
+        }
 
+        Dictionary<int, Photon.Realtime.Player> player = PlayerDict;
+        if (player != null)
+        {
+            foreach (var p in player)
+            {
+                Debug.Log($"[GameStartBtn]: player - {p.Value}");
+            }
+        }
     }
 
     void OnClickExit()

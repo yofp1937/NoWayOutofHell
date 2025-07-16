@@ -312,7 +312,6 @@ namespace Photon.Pun
                 {
                     return offlineModeRoom;
                 }
-
                 return NetworkingClient == null ? null : NetworkingClient.CurrentRoom;
             }
         }

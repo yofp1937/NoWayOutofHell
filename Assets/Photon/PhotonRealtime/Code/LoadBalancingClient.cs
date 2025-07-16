@@ -3383,7 +3383,7 @@ namespace Photon.Realtime
                     break;
             }
         }
-
+        
 
         /// <summary>
         /// Uses the photonEvent's provided by the server to advance the internal state and call ops as needed.
@@ -3393,7 +3393,6 @@ namespace Photon.Realtime
         {
             int actorNr = photonEvent.Sender;
             Player originatingPlayer = (this.CurrentRoom != null) ? this.CurrentRoom.GetPlayer(actorNr) : null;
-
             switch (photonEvent.Code)
             {
                 case EventCode.GameList:

@@ -14,8 +14,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     List<RoomInfo> _cachedRoomList = new List<RoomInfo>(); // 이전에 불러왔던 방 리스트들
 
-    public static event Action<Photon.Realtime.Player> OnPlayerEntered;
-    public static event Action<Photon.Realtime.Player> OnPlayerLeft;
+    public static event Action OnPlayerEntered;
+    public static event Action OnPlayerLeft;
 
     void Awake()
     {
@@ -184,7 +184,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        print("방 참가 완료");
         UIManager.Instance.GameRoomPanel.GetComponent<GameRoomHandler>().Init(PhotonNetwork.CurrentRoom);
     }
 
@@ -233,13 +232,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public Room GetCurrentRoomData()
     {
-        // Debug.Log(PhotonNetwork.CurrentRoom);
-        return PhotonNetwork.CurrentRoom;
-    }
+        Debug.Log($"[GetCurrentRoomData]: {PhotonNetwork.CurrentRoom}");
 
-    public Dictionary<int, Photon.Realtime.Player> GetPlayersInCurrentRoom()
-    {
-        return PhotonNetwork.CurrentRoom.Players;
+        return PhotonNetwork.CurrentRoom;
     }
 
     /// <summary>
@@ -248,7 +243,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         // 방 UI 업데이트
-        OnPlayerEntered?.Invoke(newPlayer);
+        Debug.Log($"[OnPlayerEnteredRoom]: {newPlayer}");
+        OnPlayerEntered?.Invoke();
     }
 
     /// <summary>
@@ -257,6 +253,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Photon.Realtime.Player leavedPlayer)
     {
         // 방 UI 업데이트
-        OnPlayerLeft?.Invoke(leavedPlayer);
+        Debug.Log($"[OnPlayerLeftRoom]: {leavedPlayer}");
+        OnPlayerLeft?.Invoke();
     }
 }

@@ -19,6 +19,7 @@ namespace Photon.Realtime
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using ExitGames.Client.Photon;
 
     #if SUPPORTED_UNITY || NETFX_CORE
@@ -197,6 +198,7 @@ namespace Photon.Realtime
 
             private set
             {
+                Console.WriteLine($"Players 변동됨");
                 this.players = value;
             }
         }
